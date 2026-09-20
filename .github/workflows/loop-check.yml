@@ -4,20 +4,22 @@ on:
     branches: ["main"]
   pull_request:
     branches: ["main"]
-
 jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify application contract
+      - name: Verify application contract and evidence ledger
         run: |
           set -euo pipefail
           test -f index.html
           test -f style.css
           test -f app.js
+          test -f loop/experiments.json
           grep -q 'Loop Engineering Lab' index.html
           grep -q 'style.css' index.html
           grep -q 'app.js' index.html
           node --check app.js
+          node -e "const x=require('./loop/experiments.json'); if(x.schemaVersion!==1 || !Array.isArray(x.experiments) || x.experiments.length<1) process.exit(1); for(const e of x.experiments){if(!e.id||!e.hypothesis||!e.change||!Array.isArray(e.evidence)||!e.decision||!e.next) process.exit(1)}"
           echo "LOOP_CHECK=PASS"
+          echo "EVIDENCE_LEDGER=PASS"
