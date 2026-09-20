@@ -56,11 +56,15 @@
       "hypothesis": "A lightweight static loop can carry structured experiment metadata and detect/recover from a controlled local failure without touching production.",
       "change": "Add evidence metadata, CI report generation, invariant checks, and a local CHAOS RECOVERY experiment.",
       "evidence": [
-        "Implementation branch created",
-        "Evidence pending CI + preview + production verification"
+        "GitHub CI run #9 PASS (run 35509498593)",
+        "Machine-readable loop-report artifact published (artifact 10604489579)",
+        "Vercel preview READY (dpl_5mK2tL5EPnmfvNn5mJ5BmgbkEAo9)",
+        "Preview HTTP 200",
+        "Vercel production READY (dpl_CTqWBpDa71S1Vp3w4AhZfg7G1Ytu)",
+        "Production URL reached Vercel authentication redirect (HTTP 302); deployment itself is READY"
       ],
-      "decision": "PENDING",
-      "next": "Run CI → preview → production → HTTP verification, then close the evidence loop."
+      "decision": "PASS",
+      "next": "Make deployment/CI metadata first-class fields and automate evidence collection without relying on prose."
     }
   ]
 }
