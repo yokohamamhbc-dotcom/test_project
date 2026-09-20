@@ -1,0 +1,23 @@
+name: Loop Engineering Check
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify application contract
+        run: |
+          set -euo pipefail
+          test -f index.html
+          test -f style.css
+          test -f app.js
+          grep -q 'Loop Engineering Lab' index.html
+          grep -q 'style.css' index.html
+          grep -q 'app.js' index.html
+          node --check app.js
+          echo "LOOP_CHECK=PASS"
