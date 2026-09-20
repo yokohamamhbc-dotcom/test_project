@@ -60,7 +60,9 @@ function renderLedger(data){
   log("ledger.load("+data.experiments.length+")","PASS");
 }
 
-async function chaosRecovery(){const b=$("#chaosTest");b.disabled=true;log("chaos.inject(local-only)","FAIL");$("#telemetry").textContent="DEGRADED";$("#healthScore").textContent="0";await sleep(350);const recovery=!!$("#experiments")&&!!$("#terminal")&&!!localStorage;$("#telemetry").textContent=recovery?"RECOVERED":"DEGRADED";$("#healthScore").textContent=recovery?"100":"0";log("chaos.detected()","PASS");log("chaos.recovery(local-only)","PASS");b.disabled=false;}\n\nasync function loadLedger(){
+async function chaosRecovery(){const b=$("#chaosTest");b.disabled=true;log("chaos.inject(local-only)","FAIL");$("#telemetry").textContent="DEGRADED";$("#healthScore").textContent="0";await sleep(350);const recovery=!!$("#experiments")&&!!$("#terminal")&&!!localStorage;$("#telemetry").textContent=recovery?"RECOVERED":"DEGRADED";$("#healthScore").textContent=recovery?"100":"0";log("chaos.detected()","PASS");log("chaos.recovery(local-only)","PASS");b.disabled=false;}
+
+async function loadLedger(){
   try{
     const res=await fetch("loop/experiments.json",{cache:"no-store"});
     if(!res.ok) throw new Error("HTTP "+res.status);
