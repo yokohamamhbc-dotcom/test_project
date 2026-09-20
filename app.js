@@ -78,6 +78,7 @@ async function loadLedger(){
 
 $("#runLoop").addEventListener("click",runLoop);
 $("#selfTest").addEventListener("click",selfTest);
-$("#stressTest").addEventListener("click",stressTest);\n$("#chaosTest").addEventListener("click",chaosRecovery);
+$("#stressTest").addEventListener("click",stressTest);
+$("#chaosTest").addEventListener("click",chaosRecovery);
 selfTest();
 loadLedger();
