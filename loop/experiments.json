@@ -94,6 +94,27 @@
       },
       "decision": "PASS",
       "next": "Automate evidence collection so CI/deployment identifiers are generated from observed run context rather than manually entered."
+    },
+    {
+      "id": "EXP-007",
+      "hypothesis": "The engineering loop becomes commercially useful when every experiment is explicitly connected to a business event and a revenue-oriented metric, while unconnected metrics remain visibly unmeasured.",
+      "change": "Add a machine-readable business model, business event funnel, revenue north-star metric, and UI guardrails that distinguish observed business data from placeholders.",
+      "evidence": {
+        "ci": {
+          "status": "PENDING"
+        },
+        "preview": {
+          "status": "PENDING"
+        },
+        "production": {
+          "status": "PENDING"
+        },
+        "http": {
+          "status": "PENDING"
+        }
+      },
+      "decision": "PENDING",
+      "next": "Connect a real analytics and payment data source, then run the first revenue experiment against observed customer behavior."
     }
   ]
 }
