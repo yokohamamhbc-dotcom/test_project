@@ -16,11 +16,14 @@ jobs:
           test -f style.css
           test -f app.js
           test -f loop/experiments.json
+          test -f loop/business.json
           grep -q 'Loop Engineering Lab' index.html
           grep -q 'style.css' index.html
           grep -q 'app.js' index.html
           node --check app.js
           node - <<'NODE'
+          const business=require('./loop/business.json');
+          if(business.schemaVersion!==1 || !business.northStar || business.northStar.metric!=="revenue" || !Array.isArray(business.funnel) || business.funnel.length<1) process.exit(1);
           const x=require('./loop/experiments.json');
           if(x.schemaVersion!==1 || !Array.isArray(x.experiments) || x.experiments.length<1) process.exit(1);
           const ids=new Set();
