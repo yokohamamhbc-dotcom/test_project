@@ -87,8 +87,9 @@
           "commit": "124bfa8eb537a74ca221ea7469e42eaee6824e8a"
         },
         "http": {
-          "status": "OBSERVED",
-          "note": "Vercel deployment state READY; authenticated alias may redirect externally"
+          "status": "READY",
+          "previewStatus": 200,
+          "productionDeploymentState": "READY"
         }
       },
       "decision": "PASS",
