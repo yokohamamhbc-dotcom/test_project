@@ -20,6 +20,29 @@ jobs:
           grep -q 'style.css' index.html
           grep -q 'app.js' index.html
           node --check app.js
-          node -e "const x=require('./loop/experiments.json'); if(x.schemaVersion!==1 || !Array.isArray(x.experiments) || x.experiments.length<1) process.exit(1); for(const e of x.experiments){if(!e.id||!e.hypothesis||!e.change||!Array.isArray(e.evidence)||!e.decision||!e.next) process.exit(1)}"
+          node - <<'NODE'
+          const x=require('./loop/experiments.json');
+          if(x.schemaVersion!==1 || !Array.isArray(x.experiments) || x.experiments.length<1) process.exit(1);
+          const ids=new Set();
+          const decisions=new Set(["PENDING","PASS","FAIL"]);
+          for(const e of x.experiments){
+            if(!e.id||ids.has(e.id)||!e.hypothesis||!e.change||!Array.isArray(e.evidence)||e.evidence.length<1||!decisions.has(e.decision)||!e.next) process.exit(1);
+            ids.add(e.id);
+          }
+          console.log("experiments="+x.experiments.length);
+          NODE
+          cat > loop-report.json <<'JSON'
+          {
+            "schemaVersion": 1,
+            "generatedBy": "loop-check",
+            "contract": "PASS",
+            "ledger": "PASS"
+          }
+          JSON
           echo "LOOP_CHECK=PASS"
           echo "EVIDENCE_LEDGER=PASS"
+      - name: Publish machine-readable loop report
+        uses: actions/upload-artifact@v4
+        with:
+          name: loop-report
+          path: loop-report.json
