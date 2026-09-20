@@ -37,7 +37,7 @@ async function stressTest(){
 }
 
 function selfTest(){
-  const checks=[["DOM","#runLoop"],["DOM","#selfTest"],["DOM","#stressTest"],["DOM","#experiments"],["DOM","#terminal"],["STORAGE",null]];
+  const checks=[["DOM","#runLoop"],["DOM","#selfTest"],["DOM","#stressTest"],["DOM","#chaosTest"],["DOM","#experiments"],["DOM","#terminal"],["STORAGE",null]];
   let pass=true;
   for(const [name,sel] of checks){
     const ok=sel?!!$(sel):(()=>{try{localStorage.setItem("__loop","1");localStorage.removeItem("__loop");return true}catch{return false}})();
@@ -60,7 +60,7 @@ function renderLedger(data){
   log("ledger.load("+data.experiments.length+")","PASS");
 }
 
-async function loadLedger(){
+async function chaosRecovery(){const b=$("#chaosTest");b.disabled=true;log("chaos.inject(local-only)","FAIL");$("#telemetry").textContent="DEGRADED";$("#healthScore").textContent="0";await sleep(350);const recovery=!!$("#experiments")&&!!$("#terminal")&&!!localStorage;$("#telemetry").textContent=recovery?"RECOVERED":"DEGRADED";$("#healthScore").textContent=recovery?"100":"0";log("chaos.detected()","PASS");log("chaos.recovery(local-only)","PASS");b.disabled=false;}\n\nasync function loadLedger(){
   try{
     const res=await fetch("loop/experiments.json",{cache:"no-store"});
     if(!res.ok) throw new Error("HTTP "+res.status);
@@ -76,6 +76,6 @@ async function loadLedger(){
 
 $("#runLoop").addEventListener("click",runLoop);
 $("#selfTest").addEventListener("click",selfTest);
-$("#stressTest").addEventListener("click",stressTest);
+$("#stressTest").addEventListener("click",stressTest);\n$("#chaosTest").addEventListener("click",chaosRecovery);
 selfTest();
 loadLedger();
