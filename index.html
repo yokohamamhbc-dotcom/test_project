@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Loop Engineering Lab — GitHub × Vercel 自律改善実験">
+  <title>Loop Engineering Lab</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="pulse"></span> LOOP ENGINEERING LAB</div>
+    <div class="status"><span class="dot"></span> SYSTEM READY</div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="eyebrow">GITHUB × VERCEL × AI</div>
+      <h1>作る。<br><em>観測する。</em><br>進化する。</h1>
+      <p class="lead">コードを一度書いて終わらせない。変更 → Deploy → 観測 → 改善を高速で回し続ける、ループエンジニアリングの実験場。</p>
+      <div class="actions">
+        <button id="runLoop">LOOPを回す <span>↗</span></button>
+        <a href="#architecture">仕組みを見る ↓</a>
+      </div>
+    </section>
+
+    <section class="metrics" aria-label="loop metrics">
+      <article><span>ITERATIONS</span><strong id="iterations">00</strong><small>継続改善回数</small></article>
+      <article><span>FEEDBACK</span><strong id="feedback">READY</strong><small>観測フィードバック</small></article>
+      <article><span>LATENCY</span><strong id="latency">—</strong><small>改善サイクル</small></article>
+      <article><span>STATE</span><strong id="state">IDLE</strong><small>現在のループ</small></article>
+    </section>
+
+    <section id="architecture" class="architecture">
+      <div class="section-head"><span>01 / LOOP</span><h2>AIが回す開発ループ</h2></div>
+      <div class="loop">
+        <div class="node active"><b>01</b><strong>IDEA</strong><small>目的を定義</small></div>
+        <i>→</i><div class="node"><b>02</b><strong>BUILD</strong><small>GitHubへ実装</small></div>
+        <i>→</i><div class="node"><b>03</b><strong>DEPLOY</strong><small>Vercelへ公開</small></div>
+        <i>→</i><div class="node"><b>04</b><strong>OBSERVE</strong><small>結果を観測</small></div>
+        <i>→</i><div class="node"><b>05</b><strong>LEARN</strong><small>次の改善へ</small></div>
+      </div>
+    </section>
+
+    <section class="terminal-section">
+      <div class="section-head"><span>02 / TELEMETRY</span><h2>ループの思考ログ</h2></div>
+      <div id="terminal" class="terminal" aria-live="polite">
+        <div><span>19:00:00</span> system.boot() <b>OK</b></div>
+        <div><span>19:00:01</span> github.connection <b>READY</b></div>
+        <div><span>19:00:02</span> vercel.connection <b>READY</b></div>
+        <div><span>19:00:03</span> loop_engine.waiting() <b>STANDBY</b></div>
+      </div>
+    </section>
+
+    <section class="manifest">
+      <div><div class="section-head"><span>03 / PRINCIPLE</span><h2>限界まで速く、でも壊さない。</h2></div>
+      <p>この実験では、変更を小さくし、観測可能にし、失敗を次の入力に変える。人間が目的を決め、AIが実装・検証・改善のループを担う。</p></div>
+      <div class="quote">“The product is not the code.<br><em>The product is the learning loop.</em>”</div>
+    </section>
+  </main>
+  <footer>LOOP ENGINEERING LAB · EXPERIMENT 001</footer>
+  <script src="app.js"></script>
+</body>
+</html>
