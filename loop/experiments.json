@@ -65,6 +65,27 @@
       ],
       "decision": "PASS",
       "next": "Make deployment/CI metadata first-class fields and automate evidence collection without relying on prose."
+    },
+    {
+      "id": "EXP-006",
+      "hypothesis": "The loop becomes more reliable when evidence is represented as structured fields and CI enforces the evidence contract.",
+      "change": "Add a structured evidence object to EXP-006 and enforce required evidence fields in CI.",
+      "evidence": {
+        "ci": {
+          "status": "PENDING"
+        },
+        "preview": {
+          "status": "PENDING"
+        },
+        "production": {
+          "status": "PENDING"
+        },
+        "http": {
+          "status": "PENDING"
+        }
+      },
+      "decision": "PENDING",
+      "next": "Collect actual run/deployment IDs automatically and replace PENDING fields with observed evidence."
     }
   ]
 }
