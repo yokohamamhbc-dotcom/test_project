@@ -72,20 +72,28 @@
       "change": "Add a structured evidence object to EXP-006 and enforce required evidence fields in CI.",
       "evidence": {
         "ci": {
-          "status": "PENDING"
+          "status": "PASS",
+          "runId": 35509683800,
+          "conclusion": "success"
         },
         "preview": {
-          "status": "PENDING"
+          "status": "READY",
+          "deploymentId": "dpl_FHp82Da5xq1k51ik68HLuH55gunY",
+          "httpStatus": 200
         },
         "production": {
-          "status": "PENDING"
+          "status": "READY",
+          "deploymentId": "dpl_4LTkUM2oPKC69VpVJ1npSZrjdRi5",
+          "commit": "124bfa8eb537a74ca221ea7469e42eaee6824e8a"
         },
         "http": {
-          "status": "PENDING"
+          "status": "READY",
+          "previewStatus": 200,
+          "productionDeploymentState": "READY"
         }
       },
-      "decision": "PENDING",
-      "next": "Collect actual run/deployment IDs automatically and replace PENDING fields with observed evidence."
+      "decision": "PASS",
+      "next": "Automate evidence collection so CI/deployment identifiers are generated from observed run context rather than manually entered."
     }
   ]
 }
