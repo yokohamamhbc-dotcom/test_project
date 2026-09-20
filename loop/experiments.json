@@ -2,8 +2,65 @@
   "schemaVersion": 1,
   "purpose": "Evidence ledger for loop engineering experiments",
   "experiments": [
-    {"id":"EXP-001","hypothesis":"A minimal static loop can be deployed and observed safely.","change":"Initialize Loop Engineering Lab.","evidence":["GitHub CI PASS","Vercel production READY","HTTP 200"],"decision":"PASS","next":"Add measurable persistence and deterministic self-test."},
-    {"id":"EXP-002","hypothesis":"The loop can persist local telemetry and expose deterministic health checks.","change":"Add Loop Health, local history, and SELF TEST.","evidence":["GitHub CI PASS","Vercel production READY"],"decision":"PASS","next":"Stress the feedback loop repeatedly."},
-    {"id":"EXP-003","hypothesis":"Ten explicit feedback cycles can execute without breaking the control surface.","change":"Add STRESS 10×.","evidence":["GitHub PR CI PASS","Vercel preview READY","Production READY after merge","HTTP 200"],"decision":"PASS","next":"Make experiment evidence machine-readable and validate the ledger in CI."}
+    {
+      "id": "EXP-001",
+      "hypothesis": "A minimal static loop can be deployed and observed safely.",
+      "change": "Initialize Loop Engineering Lab.",
+      "evidence": [
+        "GitHub CI PASS",
+        "Vercel production READY",
+        "HTTP 200"
+      ],
+      "decision": "PASS",
+      "next": "Add measurable persistence and deterministic self-test."
+    },
+    {
+      "id": "EXP-002",
+      "hypothesis": "The loop can persist local telemetry and expose deterministic health checks.",
+      "change": "Add Loop Health, local history, and SELF TEST.",
+      "evidence": [
+        "GitHub CI PASS",
+        "Vercel production READY"
+      ],
+      "decision": "PASS",
+      "next": "Stress the feedback loop repeatedly."
+    },
+    {
+      "id": "EXP-003",
+      "hypothesis": "Ten explicit feedback cycles can execute without breaking the control surface.",
+      "change": "Add STRESS 10×.",
+      "evidence": [
+        "GitHub PR CI PASS",
+        "Vercel preview READY",
+        "Production READY after merge",
+        "HTTP 200"
+      ],
+      "decision": "PASS",
+      "next": "Make experiment evidence machine-readable and validate the ledger in CI."
+    },
+    {
+      "id": "EXP-004",
+      "hypothesis": "Experiment evidence becomes more inspectable when it is machine-readable and visible in the app.",
+      "change": "Add loop/experiments.json, validate its schema in CI, and render the ledger.",
+      "evidence": [
+        "GitHub PR CI PASS",
+        "Vercel preview READY",
+        "Production READY after merge",
+        "HTTP 200"
+      ],
+      "decision": "PASS",
+      "next": "Attach structured CI/deployment metadata and test controlled recovery."
+    },
+    {
+      "id": "EXP-005",
+      "hypothesis": "A lightweight static loop can carry structured experiment metadata and detect/recover from a controlled local failure without touching production.",
+      "change": "Add evidence metadata, CI report generation, invariant checks, and a local CHAOS RECOVERY experiment.",
+      "evidence": [
+        "Implementation branch created",
+        "Evidence pending CI + preview + production verification"
+      ],
+      "decision": "PENDING",
+      "next": "Run CI → preview → production → HTTP verification, then close the evidence loop."
+    }
   ]
 }
