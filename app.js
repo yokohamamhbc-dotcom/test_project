@@ -46,6 +46,8 @@ function selfTest(){
   $("#contract").textContent=pass?"PASS":"FAIL"; $("#healthScore").textContent=pass?"100":"0"; return pass;
 }
 
+function renderBusiness(data){const root=$("#businessFunnel");root.replaceChildren();data.funnel.forEach((e,i)=>{const card=document.createElement("div");card.className="business-event";card.innerHTML="<b>"+String(i+1).padStart(2,"0")+"</b><strong>"+e.event+"</strong><small>"+e.meaning+"</small>";root.append(card);});$("#northStarStatus").textContent=data.northStar.status;$("#businessEvents").textContent=String(data.funnel.length).padStart(2,"0");$("#monetizationState").textContent=data.northStar.status==="NOT_CONNECTED"?"DESIGNING":"MEASURING";log("business.model("+data.northStar.metric+")","READY");}
+async function loadBusiness(){try{const res=await fetch("loop/business.json",{cache:"no-store"});if(!res.ok)throw new Error("HTTP "+res.status);const data=await res.json();if(data.schemaVersion!==1||!data.northStar||data.northStar.metric!=="revenue"||!Array.isArray(data.funnel))throw new Error("invalid business schema");renderBusiness(data);}catch(err){log("business.load()","FAIL");$("#monetizationState").textContent="ERROR";}}
 function renderLedger(data){
   const root=$("#experiments"); root.replaceChildren();
   [...data.experiments].reverse().forEach(e=>{
@@ -81,4 +83,5 @@ $("#selfTest").addEventListener("click",selfTest);
 $("#stressTest").addEventListener("click",stressTest);
 $("#chaosTest").addEventListener("click",chaosRecovery);
 selfTest();
+loadBusiness();
 loadLedger();
