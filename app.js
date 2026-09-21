@@ -3,11 +3,16 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const terminal=$("#terminal");
 
 const analyticsQueue=[];
+const analyticsInitialVa=window.va;
 let analyticsRetryCount=0;
 const analyticsRetryLimit=20;
 
+function analyticsClientReady() {
+  return typeof window.va === "function" && (!analyticsInitialVa || window.va !== analyticsInitialVa);
+}
+
 function flushAnalyticsQueue() {
-  if (typeof window.va !== "function") {
+  if (!analyticsClientReady()) {
     if (analyticsQueue.length && analyticsRetryCount<analyticsRetryLimit) {
       analyticsRetryCount++;
       setTimeout(flushAnalyticsQueue, 250);
@@ -23,7 +28,7 @@ function flushAnalyticsQueue() {
 }
 
 function trackBusinessEvent(eventName, properties={}) {
-  if (typeof window.va !== "function") {
+  if (!analyticsClientReady()) {
     analyticsQueue.push({eventName,properties});
     log("analytics."+eventName.toLowerCase(), "QUEUED");
     flushAnalyticsQueue();
@@ -35,6 +40,25 @@ function trackBusinessEvent(eventName, properties={}) {
 }
 
 trackBusinessEvent("VISIT", { experimentId: null, source: "page_load" });
+
+function renderAnalyticsDiagnostics(){
+  const client=$("#analyticsClient");
+  const queue=$("#analyticsQueue");
+  const script=$("#analyticsScript");
+  const status=$("#analyticsStatus");
+  if(!client||!queue||!script||!status) return;
+  const hasScript=[...document.scripts].some(s=>s.src.includes("/_vercel/insights/script.js"));
+  const ready=analyticsClientReady();
+  client.textContent=ready?"READY":"QUEUE STUB";
+  queue.textContent=String(analyticsQueue.length).padStart(2,"0");
+  script.textContent=hasScript?"PRESENT":"MISSING";
+  status.textContent=ready?"CLIENT READY":"WAITING";
+}
+renderAnalyticsDiagnostics();
+const analyticsDiagnosticTimer=setInterval(()=>{
+  renderAnalyticsDiagnostics();
+  if(analyticsClientReady() && analyticsQueue.length===0) clearInterval(analyticsDiagnosticTimer);
+},250);
 const stages=["IDEA","BUILD","DEPLOY","OBSERVE","LEARN"];
 let runs=Number(localStorage.getItem("loopRuns")||0);
 let history=JSON.parse(localStorage.getItem("loopHistory")||"[]");
