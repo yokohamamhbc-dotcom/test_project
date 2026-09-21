@@ -101,16 +101,23 @@
       "change": "Add a machine-readable business model, business event funnel, revenue north-star metric, and UI guardrails that distinguish observed business data from placeholders.",
       "evidence": {
         "ci": {
-          "status": "PENDING"
+          "status": "PASS",
+          "runId": 35516263008,
+          "conclusion": "success"
         },
         "preview": {
-          "status": "PENDING"
+          "status": "READY",
+          "deploymentId": "dpl_5YX7LPiky6AcD2DHoWxGrixJXNhh",
+          "httpStatus": 200,
+          "commit": "e0687cc58e45015775aab443878e2415c8f59cbb"
         },
         "production": {
           "status": "PENDING"
         },
         "http": {
-          "status": "PENDING"
+          "status": "READY",
+          "previewStatus": 200,
+          "productionDeploymentState": "PENDING"
         }
       },
       "decision": "PENDING",
