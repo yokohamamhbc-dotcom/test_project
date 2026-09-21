@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "status": "NOT_CONNECTED",
+  "purpose": "Vendor-neutral contract for observing customer behavior before connecting an analytics provider.",
+  "identityRule": "Use an anonymous or provider-issued user identifier; never store raw payment credentials or unnecessary personal data.",
+  "events": [
+    {"name":"VISIT","stage":"acquisition","required":true},
+    {"name":"ACTIVATION","stage":"value","required":true},
+    {"name":"TRIAL_STARTED","stage":"monetization","required":true},
+    {"name":"PURCHASE","stage":"revenue","required":true},
+    {"name":"RETENTION","stage":"value","required":true}
+  ],
+  "eventEnvelope": {
+    "event": "string",
+    "occurredAt": "ISO-8601",
+    "anonymousId": "string",
+    "experimentId": "string|null",
+    "properties": "object"
+  },
+  "revenueRule": "PURCHASE revenue must come from a real payment source; never infer or fabricate revenue from UI events.",
+  "observationWindow": "PENDING",
+  "provider": "NONE"
+}
