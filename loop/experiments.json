@@ -165,20 +165,25 @@
       "change": "Add an analytics integration contract describing required events, identity, observation window, provider state, and connection guardrails; keep the provider unconnected until a real analytics source is configured.",
       "evidence": {
         "ci": {
-          "status": "PENDING"
+          "status": "PASS",
+          "runId": 35552506508,
+          "conclusion": "success"
         },
         "preview": {
-          "status": "PENDING"
+          "status": "READY",
+          "deploymentId": "dpl_58525C2r2qZQVsNRwZSToRySvH8r",
+          "httpStatus": 200
         },
         "production": {
           "status": "PENDING"
         },
         "http": {
-          "status": "PENDING"
+          "status": "READY",
+          "previewStatus": 200
         }
       },
-      "decision": "PENDING",
-      "next": "Connect one real analytics provider and verify one end-to-end VISIT or TRIAL_STARTED event before enabling revenue reporting."
+      "decision": "PASS",
+      "next": "Verify the production deployment after merge, then connect one real analytics provider and confirm a real VISIT or TRIAL_STARTED event end-to-end."
     }
   ]
 }
