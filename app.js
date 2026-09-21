@@ -64,7 +64,7 @@ function renderLedger(data){
     card.innerHTML="<header><strong>"+e.id+"</strong><b>"+e.decision+"</b></header>"+
       "<h3>"+e.hypothesis+"</h3>"+
       "<p><span>CHANGE</span>"+e.change+"</p>"+
-      "<p><span>EVIDENCE</span>"+e.evidence.join(" · ")+"</p>"+
+      "<p><span>EVIDENCE</span>"+(Array.isArray(e.evidence)?e.evidence.join(" · "):Object.entries(e.evidence).map(([k,v])=>k+":"+v.status).join(" · "))+"</p>"+
       "<p><span>NEXT</span>"+e.next+"</p>";
     root.append(card);
   });
