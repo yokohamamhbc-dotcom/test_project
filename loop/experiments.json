@@ -133,20 +133,31 @@
       "change": "Add a reversible offer card and local-only purchase-interest event probe; do not claim a purchase or revenue.",
       "evidence": {
         "ci": {
-          "status": "PENDING"
+          "status": "PASS",
+          "runId": 35552033402,
+          "conclusion": "success"
         },
         "preview": {
-          "status": "PENDING"
+          "status": "READY",
+          "deploymentId": "dpl_JC45hFxwo73CjePCsmUeh2iguoqa",
+          "httpStatus": 200,
+          "commit": "1fe3c1e6f2ba87e3a0e5f27b2125c2c1a18171a9"
         },
         "production": {
-          "status": "PENDING"
+          "status": "READY",
+          "deploymentId": "dpl_3mg6iwRRT1dbczwDo8JEFUFKbh76",
+          "httpStatus": 200,
+          "commit": "e200925644f3ad2da4e9406a755fc973aceb96e2"
         },
         "http": {
-          "status": "PENDING"
+          "status": "READY",
+          "previewStatus": 200,
+          "productionStatus": 200,
+          "productionDeploymentState": "READY"
         }
       },
-      "decision": "PENDING",
-      "next": "Observe real visitor interaction, then connect a real payment provider only after the offer signal is validated."
+      "decision": "PASS",
+      "next": "Connect a real analytics source and define a concrete offer/pricing assumption, then run the smallest externally observable conversion experiment; keep revenue NOT_CONNECTED until payment evidence exists."
     }
   ]
 }
