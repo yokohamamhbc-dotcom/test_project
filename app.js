@@ -85,3 +85,27 @@ $("#chaosTest").addEventListener("click",chaosRecovery);
 selfTest();
 loadBusiness();
 loadLedger();
+
+function recordOfferInterest() {
+  const status = document.getElementById("offerStatus");
+  if (!status) return;
+  const event = {
+    event: "TRIAL_STARTED",
+    occurredAt: new Date().toISOString(),
+    anonymousId: getAnonymousId(),
+    experimentId: "EXP-009",
+    properties: { intent: "purchase_interest", source: "offer_probe" }
+  };
+  localStorage.setItem("loop_offer_interest", JSON.stringify(event));
+  status.textContent = "OBSERVED LOCALLY";
+  log("business.TRIAL_STARTED intent OBSERVED");
+}
+function getAnonymousId() {
+  let id = localStorage.getItem("loop_anonymous_id");
+  if (!id) { id = "local-" + Math.random().toString(36).slice(2); localStorage.setItem("loop_anonymous_id", id); }
+  return id;
+}
+document.addEventListener("DOMContentLoaded", () => {
+  const button = document.getElementById("offerInterest");
+  if (button) button.addEventListener("click", recordOfferInterest);
+});
