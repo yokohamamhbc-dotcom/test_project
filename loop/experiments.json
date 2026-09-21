@@ -280,23 +280,35 @@
       "change": "Add a small runtime diagnostics panel that reports the Analytics script tag, client readiness, queued-event count, and status without promoting business connection state.",
       "evidence": {
         "ci": {
-          "status": "PENDING"
+          "status": "PASS",
+          "runId": 35555094871,
+          "conclusion": "success"
         },
         "preview": {
-          "status": "PENDING"
+          "status": "READY",
+          "deploymentId": "dpl_7DYb6saeerCXpmKrY8WhY7uRrGyU",
+          "httpStatus": null,
+          "commit": "3ac94ded780897a8514876d06bb4d614ff9b6694"
         },
         "production": {
-          "status": "PENDING"
+          "status": "READY",
+          "deploymentId": "dpl_DVz8vaNYK6wXYNCapuxLDh9d3SuU",
+          "httpStatus": null,
+          "commit": "0504916931a29efb65a9a2186f5d40c03054b305"
         },
         "http": {
-          "status": "PENDING"
+          "status": "READY",
+          "previewStatus": null,
+          "productionStatus": null,
+          "productionDeploymentState": "READY"
         },
         "analytics": {
-          "status": "PENDING"
+          "status": "PENDING",
+          "note": "Runtime diagnostics are deployed, but independent Vercel Analytics receipt evidence is still unavailable; connection remains NOT_CONNECTED."
         }
       },
       "decision": "PENDING",
-      "next": "Deploy and inspect the production diagnostics; if the client reaches READY with an empty queue but external receipt remains unavailable, move the next experiment to authenticated Analytics API access or project-level Web Analytics enablement."
+      "next": "Use the diagnostics to separate client readiness from external receipt; if receipt remains unavailable, obtain authenticated Web Analytics API access or enable project-level Web Analytics, then verify VISIT before touching revenue state."
     }
   ]
 }
