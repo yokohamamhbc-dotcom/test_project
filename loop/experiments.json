@@ -273,6 +273,30 @@
       },
       "decision": "PENDING",
       "next": "Deploy and verify the production page with a real browser or external Analytics receipt; only promote connection state after observed receipt."
+    },
+    {
+      "id": "EXP-014",
+      "hypothesis": "If the page can distinguish the Vercel Analytics queue stub from the loaded client, we can diagnose client-side initialization separately from external receipt and avoid treating local dispatch as observed analytics.",
+      "change": "Add a small runtime diagnostics panel that reports the Analytics script tag, client readiness, queued-event count, and status without promoting business connection state.",
+      "evidence": {
+        "ci": {
+          "status": "PENDING"
+        },
+        "preview": {
+          "status": "PENDING"
+        },
+        "production": {
+          "status": "PENDING"
+        },
+        "http": {
+          "status": "PENDING"
+        },
+        "analytics": {
+          "status": "PENDING"
+        }
+      },
+      "decision": "PENDING",
+      "next": "Deploy and inspect the production diagnostics; if the client reaches READY with an empty queue but external receipt remains unavailable, move the next experiment to authenticated Analytics API access or project-level Web Analytics enablement."
     }
   ]
 }
