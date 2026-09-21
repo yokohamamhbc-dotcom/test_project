@@ -189,6 +189,30 @@
       },
       "decision": "PASS",
       "next": "Connect one real analytics provider and verify a real VISIT or TRIAL_STARTED event end-to-end; keep revenue NOT_CONNECTED until payment evidence exists."
+    },
+    {
+      "id": "EXP-011",
+      "hypothesis": "A first-party Vercel Web Analytics ingestion path can provide the first external VISIT signal while keeping business and revenue reporting disabled until receipt is verified.",
+      "change": "Enable the Vercel Web Analytics script on the static site and emit VISIT plus TRIAL_STARTED through the documented client event interface; keep the vendor-neutral contract NOT_CONNECTED until an external receipt is confirmed.",
+      "evidence": {
+        "ci": {
+          "status": "PENDING"
+        },
+        "preview": {
+          "status": "PENDING"
+        },
+        "production": {
+          "status": "PENDING"
+        },
+        "http": {
+          "status": "PENDING"
+        },
+        "analytics": {
+          "status": "PENDING"
+        }
+      },
+      "decision": "PENDING",
+      "next": "Deploy, verify the analytics script and a real event receipt in Vercel Web Analytics, then promote the connection state only after evidence is observed."
     }
   ]
 }

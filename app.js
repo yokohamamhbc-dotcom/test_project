@@ -1,6 +1,15 @@
 const $=s=>document.querySelector(s);
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const terminal=$("#terminal");
+
+function trackBusinessEvent(eventName, properties={}) {
+  if (typeof window.va !== "function") { log("analytics."+eventName.toLowerCase(), "PENDING"); return false; }
+  window.va("event", { name: eventName, ...properties });
+  log("analytics."+eventName.toLowerCase(), "SENT");
+  return true;
+}
+
+trackBusinessEvent("VISIT", { experimentId: null, source: "page_load" });
 const stages=["IDEA","BUILD","DEPLOY","OBSERVE","LEARN"];
 let runs=Number(localStorage.getItem("loopRuns")||0);
 let history=JSON.parse(localStorage.getItem("loopHistory")||"[]");
@@ -55,7 +64,7 @@ function renderLedger(data){
     card.innerHTML="<header><strong>"+e.id+"</strong><b>"+e.decision+"</b></header>"+
       "<h3>"+e.hypothesis+"</h3>"+
       "<p><span>CHANGE</span>"+e.change+"</p>"+
-      "<p><span>EVIDENCE</span>"+e.evidence.join(" · ")+"</p>"+
+      "<p><span>EVIDENCE</span>"+(Array.isArray(e.evidence)?e.evidence.join(" · "):Object.entries(e.evidence).map(([k,v])=>k+":"+v.status).join(" · "))+"</p>"+
       "<p><span>NEXT</span>"+e.next+"</p>";
     root.append(card);
   });
@@ -98,6 +107,7 @@ function recordOfferInterest() {
   };
   localStorage.setItem("loop_offer_interest", JSON.stringify(event));
   status.textContent = "OBSERVED LOCALLY";
+  trackBusinessEvent("TRIAL_STARTED", { experimentId: "EXP-009", intent: "purchase_interest", source: "offer_probe" });
   log("business.TRIAL_STARTED intent OBSERVED");
 }
 function getAnonymousId() {
