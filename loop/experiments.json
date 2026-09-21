@@ -333,6 +333,44 @@
       },
       "decision": "PENDING",
       "next": "Configure a least-privilege VERCEL_TOKEN GitHub secret, rerun the probe, and promote only observed API counts into the experiment evidence."
+    },
+    {
+      "id": "EXP-016",
+      "hypothesis": "If the analytics API bridge is executed by the actual CI workflow, the loop can distinguish an executable measurement path from an uninvoked probe without exposing credentials or inventing analytics data.",
+      "change": "Wire scripts/analytics-probe.mjs into the main CI workflow, validate its syntax, execute it with VERCEL_TOKEN when configured, and publish the result as an artifact.",
+      "evidence": {
+        "ci": {
+          "status": "PASS",
+          "runId": 35556778763,
+          "conclusion": "success",
+          "probeStatus": "NOT_CONNECTED",
+          "note": "CI executed the probe; VERCEL_TOKEN was absent."
+        },
+        "preview": {
+          "status": "READY",
+          "deploymentId": "dpl_2s5mvxPpyZzbh3oBFmnVNKWemBdk",
+          "httpStatus": null,
+          "commit": "62933b1df7883f2bb000811836fe64a52b5dc723"
+        },
+        "production": {
+          "status": "READY",
+          "deploymentId": "dpl_6sAajpZqwwgbfkxm1Sj9eJBtePrV",
+          "httpStatus": null,
+          "commit": "c50e6227a2afa81d08a2effa83b725612a784f82"
+        },
+        "http": {
+          "status": "READY",
+          "previewStatus": null,
+          "productionStatus": null,
+          "productionDeploymentState": "READY"
+        },
+        "analytics": {
+          "status": "PENDING",
+          "note": "Probe execution is verified, but no VERCEL_TOKEN was configured and no external Analytics receipt was observed. Connection remains NOT_CONNECTED."
+        }
+      },
+      "decision": "PASS",
+      "next": "Establish a secure VERCEL_TOKEN credential path outside source control, rerun the CI probe, and only then record observed Web Analytics counts. Keep revenue NOT_CONNECTED until payment evidence exists."
     }
   ]
 }
