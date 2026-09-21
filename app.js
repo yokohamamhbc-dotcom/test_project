@@ -2,8 +2,33 @@ const $=s=>document.querySelector(s);
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const terminal=$("#terminal");
 
+const analyticsQueue=[];
+let analyticsRetryCount=0;
+const analyticsRetryLimit=20;
+
+function flushAnalyticsQueue() {
+  if (typeof window.va !== "function") {
+    if (analyticsQueue.length && analyticsRetryCount<analyticsRetryLimit) {
+      analyticsRetryCount++;
+      setTimeout(flushAnalyticsQueue, 250);
+    }
+    return false;
+  }
+  while (analyticsQueue.length) {
+    const {eventName,properties}=analyticsQueue.shift();
+    window.va("event", { name: eventName, ...properties });
+    log("analytics."+eventName.toLowerCase(), "SENT");
+  }
+  return true;
+}
+
 function trackBusinessEvent(eventName, properties={}) {
-  if (typeof window.va !== "function") { log("analytics."+eventName.toLowerCase(), "PENDING"); return false; }
+  if (typeof window.va !== "function") {
+    analyticsQueue.push({eventName,properties});
+    log("analytics."+eventName.toLowerCase(), "QUEUED");
+    flushAnalyticsQueue();
+    return false;
+  }
   window.va("event", { name: eventName, ...properties });
   log("analytics."+eventName.toLowerCase(), "SENT");
   return true;
