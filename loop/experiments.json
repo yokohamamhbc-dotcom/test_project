@@ -6,35 +6,249 @@
       "id": "EXP-001",
       "hypothesis": "A minimal static loop can be deployed and observed safely.",
       "change": "Initialize Loop Engineering Lab.",
-      "evidence": ["GitHub CI PASS","Vercel production READY","HTTP 200"],
-      "decision": "PASS","next": "Add measurable persistence and deterministic self-test."
+      "evidence": [
+        "GitHub CI PASS",
+        "Vercel production READY",
+        "HTTP 200"
+      ],
+      "decision": "PASS",
+      "next": "Add measurable persistence and deterministic self-test."
     },
     {
-      "id": "EXP-002","hypothesis": "The loop can persist local telemetry and expose deterministic health checks.","change": "Add Loop Health, local history, and SELF TEST.","evidence": ["GitHub CI PASS","Vercel production READY"],"decision": "PASS","next": "Stress the feedback loop repeatedly."
+      "id": "EXP-002",
+      "hypothesis": "The loop can persist local telemetry and expose deterministic health checks.",
+      "change": "Add Loop Health, local history, and SELF TEST.",
+      "evidence": [
+        "GitHub CI PASS",
+        "Vercel production READY"
+      ],
+      "decision": "PASS",
+      "next": "Stress the feedback loop repeatedly."
     },
     {
-      "id": "EXP-003","hypothesis": "Ten explicit feedback cycles can execute without breaking the control surface.","change": "Add STRESS 10×.","evidence": ["GitHub PR CI PASS","Vercel preview READY","Production READY after merge","HTTP 200"],"decision": "PASS","next": "Make experiment evidence machine-readable and validate the ledger in CI."
+      "id": "EXP-003",
+      "hypothesis": "Ten explicit feedback cycles can execute without breaking the control surface.",
+      "change": "Add STRESS 10×.",
+      "evidence": [
+        "GitHub PR CI PASS",
+        "Vercel preview READY",
+        "Production READY after merge",
+        "HTTP 200"
+      ],
+      "decision": "PASS",
+      "next": "Make experiment evidence machine-readable and validate the ledger in CI."
     },
     {
-      "id": "EXP-004","hypothesis": "Experiment evidence becomes more inspectable when it is machine-readable and visible in the app.","change": "Add loop/experiments.json, validate its schema in CI, and render the ledger.","evidence": ["GitHub PR CI PASS","Vercel preview READY","Production READY after merge","HTTP 200"],"decision": "PASS","next": "Attach structured CI/deployment metadata and test controlled recovery."
+      "id": "EXP-004",
+      "hypothesis": "Experiment evidence becomes more inspectable when it is machine-readable and visible in the app.",
+      "change": "Add loop/experiments.json, validate its schema in CI, and render the ledger.",
+      "evidence": [
+        "GitHub PR CI PASS",
+        "Vercel preview READY",
+        "Production READY after merge",
+        "HTTP 200"
+      ],
+      "decision": "PASS",
+      "next": "Attach structured CI/deployment metadata and test controlled recovery."
     },
     {
-      "id": "EXP-005","hypothesis": "A lightweight static loop can carry structured experiment metadata and detect/recover from a controlled local failure without touching production.","change": "Add evidence metadata, CI report generation, invariant checks, and a local CHAOS RECOVERY experiment.","evidence": ["GitHub CI run #9 PASS (run 35509498593)","Machine-readable loop-report artifact published (artifact 10604489579)","Vercel preview READY (dpl_5mK2tL5EPnmfvNn5mJ5BmgbkEAo9)","Preview HTTP 200","Vercel production READY (dpl_CTqWBpDa71S1Vp3w4AhZfg7G1Ytu)","Production URL reached Vercel authentication redirect (HTTP 302); deployment itself is READY"],"decision": "PASS","next": "Make deployment/CI metadata first-class fields and automate evidence collection without relying on prose."
+      "id": "EXP-005",
+      "hypothesis": "A lightweight static loop can carry structured experiment metadata and detect/recover from a controlled local failure without touching production.",
+      "change": "Add evidence metadata, CI report generation, invariant checks, and a local CHAOS RECOVERY experiment.",
+      "evidence": [
+        "GitHub CI run #9 PASS (run 35509498593)",
+        "Machine-readable loop-report artifact published (artifact 10604489579)",
+        "Vercel preview READY (dpl_5mK2tL5EPnmfvNn5mJ5BmgbkEAo9)",
+        "Preview HTTP 200",
+        "Vercel production READY (dpl_CTqWBpDa71S1Vp3w4AhZfg7G1Ytu)",
+        "Production URL reached Vercel authentication redirect (HTTP 302); deployment itself is READY"
+      ],
+      "decision": "PASS",
+      "next": "Make deployment/CI metadata first-class fields and automate evidence collection without relying on prose."
     },
     {
-      "id": "EXP-006","hypothesis": "The loop becomes more reliable when evidence is represented as structured fields and CI enforces the evidence contract.","change": "Add a structured evidence object to EXP-006 and enforce required evidence fields in CI.","evidence":{"ci":{"status":"PASS","runId":35509683800,"conclusion":"success"},"preview":{"status":"READY","deploymentId":"dpl_FHp82Da5xq1k51ik68HLuH55gunY","httpStatus":200},"production":{"status":"READY","deploymentId":"dpl_4LTkUM2oPKC69VpVJ1npSZrjdRi5","commit":"124bfa8eb537a74ca221ea7469e42eaee6824e8a"},"http":{"status":"READY","previewStatus":200,"productionDeploymentState":"READY"}},"decision":"PASS","next":"Automate evidence collection so CI/deployment identifiers are generated from observed run context rather than manually entered."
+      "id": "EXP-006",
+      "hypothesis": "The loop becomes more reliable when evidence is represented as structured fields and CI enforces the evidence contract.",
+      "change": "Add a structured evidence object to EXP-006 and enforce required evidence fields in CI.",
+      "evidence": {
+        "ci": {
+          "status": "PASS",
+          "runId": 35509683800,
+          "conclusion": "success"
+        },
+        "preview": {
+          "status": "READY",
+          "deploymentId": "dpl_FHp82Da5xq1k51ik68HLuH55gunY",
+          "httpStatus": 200
+        },
+        "production": {
+          "status": "READY",
+          "deploymentId": "dpl_4LTkUM2oPKC69VpVJ1npSZrjdRi5",
+          "commit": "124bfa8eb537a74ca221ea7469e42eaee6824e8a"
+        },
+        "http": {
+          "status": "READY",
+          "previewStatus": 200,
+          "productionDeploymentState": "READY"
+        }
+      },
+      "decision": "PASS",
+      "next": "Automate evidence collection so CI/deployment identifiers are generated from observed run context rather than manually entered."
     },
     {
-      "id": "EXP-007","hypothesis": "The engineering loop becomes commercially useful when every experiment is explicitly connected to a business event and a revenue-oriented metric, while unconnected metrics remain visibly unmeasured.","change": "Add a machine-readable business model, business event funnel, revenue north-star metric, and UI guardrails that distinguish observed business data from placeholders.","evidence":{"ci":{"status":"PASS","runId":35551690799,"conclusion":"success"},"preview":{"status":"READY","deploymentId":"dpl_5YX7LPiky6AcD2DHoWxGrixJXNhh","httpStatus":200,"commit":"e0687cc58e45015775aab443878e2415c8f59cbb"},"production":{"status":"READY","deploymentId":"dpl_BZNbcJG7Ccu1FRRk2Q3BYG3GhjVP","commit":"121dbc26fdcc2b40b306f9275d2663b90d1d61f9","httpStatus":200},"http":{"status":"READY","previewStatus":200,"productionStatus":200,"productionDeploymentState":"READY"}},"decision":"PASS","next":"Connect one real analytics source and one payment/revenue source, then run the first observed revenue experiment without treating placeholders as business outcomes."
+      "id": "EXP-007",
+      "hypothesis": "The engineering loop becomes commercially useful when every experiment is explicitly connected to a business event and a revenue-oriented metric, while unconnected metrics remain visibly unmeasured.",
+      "change": "Add a machine-readable business model, business event funnel, revenue north-star metric, and UI guardrails that distinguish observed business data from placeholders.",
+      "evidence": {
+        "ci": {
+          "status": "PASS",
+          "runId": 35551690799,
+          "conclusion": "success"
+        },
+        "preview": {
+          "status": "READY",
+          "deploymentId": "dpl_5YX7LPiky6AcD2DHoWxGrixJXNhh",
+          "httpStatus": 200,
+          "commit": "e0687cc58e45015775aab443878e2415c8f59cbb"
+        },
+        "production": {
+          "status": "READY",
+          "deploymentId": "dpl_BZNbcJG7Ccu1FRRk2Q3BYG3GhjVP",
+          "commit": "121dbc26fdcc2b40b306f9275d2663b90d1d61f9",
+          "httpStatus": 200
+        },
+        "http": {
+          "status": "READY",
+          "previewStatus": 200,
+          "productionStatus": 200,
+          "productionDeploymentState": "READY"
+        }
+      },
+      "decision": "PASS",
+      "next": "Connect one real analytics source and one payment/revenue source, then run the first observed revenue experiment without treating placeholders as business outcomes."
     },
     {
-      "id": "EXP-009","hypothesis": "A concrete offer and a measurable purchase-intent event will create the first observable monetization signal before payment integration.","change": "Add a reversible offer card and local-only purchase-interest event probe; do not claim a purchase or revenue.","evidence":{"ci":{"status":"PASS","runId":35552033402,"conclusion":"success"},"preview":{"status":"READY","deploymentId":"dpl_JC45hFxwo73CjePCsmUeh2iguoqa","httpStatus":200,"commit":"1fe3c1e6f2ba87e3a0e5f27b2125c2c1a18171a9"},"production":{"status":"READY","deploymentId":"dpl_3mg6iwRRT1dbczwDo8JEFUFKbh76","httpStatus":200,"commit":"e200925644f3ad2da4e9406a755fc973aceb96e2"},"http":{"status":"READY","previewStatus":200,"productionStatus":200,"productionDeploymentState":"READY"}},"decision":"PASS","next":"Connect a real analytics source and define a concrete offer/pricing assumption, then run the smallest externally observable conversion experiment; keep revenue NOT_CONNECTED until payment evidence exists."
+      "id": "EXP-009",
+      "hypothesis": "A concrete offer and a measurable purchase-intent event will create the first observable monetization signal before payment integration.",
+      "change": "Add a reversible offer card and local-only purchase-interest event probe; do not claim a purchase or revenue.",
+      "evidence": {
+        "ci": {
+          "status": "PASS",
+          "runId": 35552033402,
+          "conclusion": "success"
+        },
+        "preview": {
+          "status": "READY",
+          "deploymentId": "dpl_JC45hFxwo73CjePCsmUeh2iguoqa",
+          "httpStatus": 200,
+          "commit": "1fe3c1e6f2ba87e3a0e5f27b2125c2c1a18171a9"
+        },
+        "production": {
+          "status": "READY",
+          "deploymentId": "dpl_3mg6iwRRT1dbczwDo8JEFUFKbh76",
+          "httpStatus": 200,
+          "commit": "e200925644f3ad2da4e9406a755fc973aceb96e2"
+        },
+        "http": {
+          "status": "READY",
+          "previewStatus": 200,
+          "productionStatus": 200,
+          "productionDeploymentState": "READY"
+        }
+      },
+      "decision": "PASS",
+      "next": "Connect a real analytics source and define a concrete offer/pricing assumption, then run the smallest externally observable conversion experiment; keep revenue NOT_CONNECTED until payment evidence exists."
     },
     {
-      "id": "EXP-010","hypothesis": "A provider-neutral analytics event contract with explicit local-vs-connected state will make the first external behavior measurement safe to integrate without fabricating customer or revenue data.","change": "Add an analytics integration contract describing required events, identity, observation window, provider state, and connection guardrails; keep the provider unconnected until a real analytics source is configured.","evidence":{"ci":{"status":"PASS","runId":35552585951,"conclusion":"success"},"preview":{"status":"READY","deploymentId":"dpl_CSRjC6CRqSBfXPEBtgmky4wxC1Tt","httpStatus":200},"production":{"status":"READY","deploymentId":"dpl_EYkkd4BH98WoQAG9iEbEKx8z5YTR","httpStatus":200,"commit":"44fc1ba3c9bc8fe4b9bc9205468bd6d3a544f164"},"http":{"status":"READY","previewStatus":200,"productionStatus":200,"productionDeploymentState":"READY"}},"decision":"PASS","next":"Connect one real analytics provider and verify a real VISIT or TRIAL_STARTED event end-to-end; keep revenue NOT_CONNECTED until payment evidence exists."
+      "id": "EXP-010",
+      "hypothesis": "A provider-neutral analytics event contract with explicit local-vs-connected state will make the first external behavior measurement safe to integrate without fabricating customer or revenue data.",
+      "change": "Add an analytics integration contract describing required events, identity, observation window, provider state, and connection guardrails; keep the provider unconnected until a real analytics source is configured.",
+      "evidence": {
+        "ci": {
+          "status": "PASS",
+          "runId": 35552585951,
+          "conclusion": "success"
+        },
+        "preview": {
+          "status": "READY",
+          "deploymentId": "dpl_CSRjC6CRqSBfXPEBtgmky4wxC1Tt",
+          "httpStatus": 200
+        },
+        "production": {
+          "status": "READY",
+          "deploymentId": "dpl_EYkkd4BH98WoQAG9iEbEKx8z5YTR",
+          "httpStatus": 200,
+          "commit": "44fc1ba3c9bc8fe4b9bc9205468bd6d3a544f164"
+        },
+        "http": {
+          "status": "READY",
+          "previewStatus": 200,
+          "productionStatus": 200,
+          "productionDeploymentState": "READY"
+        }
+      },
+      "decision": "PASS",
+      "next": "Connect one real analytics provider and verify a real VISIT or TRIAL_STARTED event end-to-end; keep revenue NOT_CONNECTED until payment evidence exists."
     },
     {
-      "id": "EXP-011","hypothesis": "A first-party Vercel Web Analytics ingestion path can provide the first external VISIT signal while keeping business and revenue reporting disabled until receipt is verified.","change": "Enable the Vercel Web Analytics script on the static site and emit VISIT plus TRIAL_STARTED through the documented client event interface; keep the vendor-neutral contract NOT_CONNECTED until an external receipt is confirmed.","evidence":{"ci":{"status":"PASS","runId":35553235296,"conclusion":"success"},"preview":{"status":"READY","deploymentId":"dpl_8zPyZb9DcZtpW96F4dnkHWW8dMSN","httpStatus":200,"commit":"72e49d81abf827679765f9cb462043482f49fc1f"},"production":{"status":"READY","deploymentId":"dpl_BMgg1NEhAaU56RNMSNQ3us29vxHp","httpStatus":200,"commit":"4cb82a22f881fcb6253cacf8e03b3a6f9e7b7226"},"http":{"status":"READY","previewStatus":200,"productionStatus":200,"productionDeploymentState":"READY"},"analytics":{"status":"PENDING","note":"The production page and Vercel Insights script route are present, but an external Analytics receipt has not yet been independently observed. Connection state remains NOT_CONNECTED."}},"decision":"PENDING","next":"Obtain independent Vercel Web Analytics receipt evidence for VISIT or TRIAL_STARTED; if unavailable, diagnose project-level Analytics activation/visibility and run the smallest safe verification loop. Keep revenue NOT_CONNECTED until payment evidence exists."
+      "id": "EXP-011",
+      "hypothesis": "A first-party Vercel Web Analytics ingestion path can provide the first external VISIT signal while keeping business and revenue reporting disabled until receipt is verified.",
+      "change": "Enable the Vercel Web Analytics script on the static site and emit VISIT plus TRIAL_STARTED through the documented client event interface; keep the vendor-neutral contract NOT_CONNECTED until an external receipt is confirmed.",
+      "evidence": {
+        "ci": {
+          "status": "PASS",
+          "runId": 35553235296,
+          "conclusion": "success"
+        },
+        "preview": {
+          "status": "READY",
+          "deploymentId": "dpl_8zPyZb9DcZtpW96F4dnkHWW8dMSN",
+          "httpStatus": 200,
+          "commit": "72e49d81abf827679765f9cb462043482f49fc1f"
+        },
+        "production": {
+          "status": "READY",
+          "deploymentId": "dpl_BMgg1NEhAaU56RNMSNQ3us29vxHp",
+          "httpStatus": 200,
+          "commit": "4cb82a22f881fcb6253cacf8e03b3a6f9e7b7226"
+        },
+        "http": {
+          "status": "READY",
+          "previewStatus": 200,
+          "productionStatus": 200,
+          "productionDeploymentState": "READY"
+        },
+        "analytics": {
+          "status": "PENDING",
+          "note": "The production page and Vercel Insights script route are present, but an external Analytics receipt has not yet been independently observed. Connection state remains NOT_CONNECTED."
+        }
+      },
+      "decision": "PENDING",
+      "next": "Obtain independent Vercel Web Analytics receipt evidence for VISIT or TRIAL_STARTED; if unavailable, diagnose project-level Analytics activation/visibility and run the smallest safe verification loop. Keep revenue NOT_CONNECTED until payment evidence exists."
+    },
+    {
+      "id": "EXP-012",
+      "hypothesis": "If Vercel Analytics initializes after the application script, a bounded client-side queue will preserve the first VISIT signal instead of dropping it while keeping connected reporting disabled until external receipt is verified.",
+      "change": "Queue VISIT and other business events when window.va is not ready, retry for a bounded period, and flush once the Vercel Analytics client event interface becomes available.",
+      "evidence": {
+        "ci": {
+          "status": "PENDING"
+        },
+        "preview": {
+          "status": "PENDING"
+        },
+        "production": {
+          "status": "PENDING"
+        },
+        "http": {
+          "status": "PENDING"
+        },
+        "analytics": {
+          "status": "PENDING"
+        }
+      },
+      "decision": "PENDING",
+      "next": "Verify the production page in a real browser and obtain independent Vercel Web Analytics receipt evidence; only then update connection state."
     }
   ]
 }
