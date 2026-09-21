@@ -371,6 +371,36 @@
       },
       "decision": "PASS",
       "next": "Establish a secure VERCEL_TOKEN credential path outside source control, rerun the CI probe, and only then record observed Web Analytics counts. Keep revenue NOT_CONNECTED until payment evidence exists."
+    },
+    {
+      "id": "EXP-017",
+      "hypothesis": "If the Vercel Web Analytics API endpoint is reachable without credentials but returns an authentication boundary, the remaining blocker can be isolated to credential provisioning rather than deployment or API availability.",
+      "change": "Make the analytics probe perform a credentialless visits/count request when VERCEL_TOKEN is absent, recording a 401 authentication boundary without failing or claiming analytics data.",
+      "evidence": {
+        "ci": {
+          "status": "PASS",
+          "runId": 35557241880,
+          "conclusion": "success"
+        },
+        "preview": {
+          "status": "PENDING"
+        },
+        "production": {
+          "status": "PENDING"
+        },
+        "http": {
+          "status": "PASS",
+          "note": "Credentialless API probe reached Vercel Web Analytics endpoint and received HTTP 403."
+        },
+        "analytics": {
+          "status": "PENDING",
+          "unauthenticatedStatus": 403,
+          "authBoundary": "CONFIRMED",
+          "note": "The endpoint is reachable, but credentialless access is forbidden. No analytics data was claimed."
+        }
+      },
+      "decision": "PASS",
+      "next": "Provision a Vercel API credential through a secure user-controlled path, add it to GitHub Actions as VERCEL_TOKEN, rerun the probe, and record only observed visits/events counts."
     }
   ]
 }
