@@ -309,6 +309,30 @@
       },
       "decision": "PENDING",
       "next": "Use the diagnostics to separate client readiness from external receipt; if receipt remains unavailable, obtain authenticated Web Analytics API access or enable project-level Web Analytics, then verify VISIT before touching revenue state."
+    },
+    {
+      "id": "EXP-015",
+      "hypothesis": "A server-side Vercel Web Analytics API probe can convert the current client-side diagnostic gap into independently verifiable VISIT and custom-event evidence without exposing credentials to the browser.",
+      "change": "Add a CI-safe analytics probe that queries Vercel Web Analytics visits/count and events/count using a VERCEL_TOKEN secret when configured; without the secret it records NOT_CONNECTED/PENDING instead of fabricating data.",
+      "evidence": {
+        "ci": {
+          "status": "PENDING"
+        },
+        "preview": {
+          "status": "PENDING"
+        },
+        "production": {
+          "status": "PENDING"
+        },
+        "http": {
+          "status": "PENDING"
+        },
+        "analytics": {
+          "status": "PENDING"
+        }
+      },
+      "decision": "PENDING",
+      "next": "Configure a least-privilege VERCEL_TOKEN GitHub secret, rerun the probe, and promote only observed API counts into the experiment evidence."
     }
   ]
 }
