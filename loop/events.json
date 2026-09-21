@@ -4,11 +4,31 @@
   "purpose": "Vendor-neutral contract for observing customer behavior before connecting an analytics provider.",
   "identityRule": "Use an anonymous or provider-issued user identifier; never store raw payment credentials or unnecessary personal data.",
   "events": [
-    {"name":"VISIT","stage":"acquisition","required":true},
-    {"name":"ACTIVATION","stage":"value","required":true},
-    {"name":"TRIAL_STARTED","stage":"monetization","required":true},
-    {"name":"PURCHASE","stage":"revenue","required":true},
-    {"name":"RETENTION","stage":"value","required":true}
+    {
+      "name": "VISIT",
+      "stage": "acquisition",
+      "required": true
+    },
+    {
+      "name": "ACTIVATION",
+      "stage": "value",
+      "required": true
+    },
+    {
+      "name": "TRIAL_STARTED",
+      "stage": "monetization",
+      "required": true
+    },
+    {
+      "name": "PURCHASE",
+      "stage": "revenue",
+      "required": true
+    },
+    {
+      "name": "RETENTION",
+      "stage": "value",
+      "required": true
+    }
   ],
   "eventEnvelope": {
     "event": "string",
@@ -19,5 +39,17 @@
   },
   "revenueRule": "PURCHASE revenue must come from a real payment source; never infer or fabricate revenue from UI events.",
   "observationWindow": "PENDING",
-  "provider": "NONE"
+  "provider": "NONE",
+  "integrationContract": {
+    "requiredEvents": [
+      "VISIT",
+      "ACTIVATION",
+      "TRIAL_STARTED",
+      "PURCHASE",
+      "RETENTION"
+    ],
+    "connectionState": "NOT_CONNECTED",
+    "firstVerification": "PENDING",
+    "guardrail": "Do not emit connected/observed business metrics until an external analytics source confirms receipt of a real event."
+  }
 }
