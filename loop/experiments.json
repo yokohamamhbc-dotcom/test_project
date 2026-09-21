@@ -249,6 +249,30 @@
       },
       "decision": "PENDING",
       "next": "Verify the production page in a real browser and obtain independent Vercel Web Analytics receipt evidence; only then update connection state."
+    },
+    {
+      "id": "EXP-013",
+      "hypothesis": "The missing HTML-side Vercel Analytics initialization may be preventing the documented window.va queue from existing before the app emits VISIT; initializing the queue before the Insights script should preserve the event and enable external receipt.",
+      "change": "Add the documented window.va/window.vaq initialization immediately before the Vercel Insights script in the static HTML page.",
+      "evidence": {
+        "ci": {
+          "status": "PENDING"
+        },
+        "preview": {
+          "status": "PENDING"
+        },
+        "production": {
+          "status": "PENDING"
+        },
+        "http": {
+          "status": "PENDING"
+        },
+        "analytics": {
+          "status": "PENDING"
+        }
+      },
+      "decision": "PENDING",
+      "next": "Deploy and verify the production page with a real browser or external Analytics receipt; only promote connection state after observed receipt."
     }
   ]
 }
