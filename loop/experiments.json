@@ -166,24 +166,29 @@
       "evidence": {
         "ci": {
           "status": "PASS",
-          "runId": 35552506508,
+          "runId": 35552585951,
           "conclusion": "success"
         },
         "preview": {
           "status": "READY",
-          "deploymentId": "dpl_58525C2r2qZQVsNRwZSToRySvH8r",
+          "deploymentId": "dpl_CSRjC6CRqSBfXPEBtgmky4wxC1Tt",
           "httpStatus": 200
         },
         "production": {
-          "status": "PENDING"
+          "status": "READY",
+          "deploymentId": "dpl_EYkkd4BH98WoQAG9iEbEKx8z5YTR",
+          "httpStatus": 200,
+          "commit": "44fc1ba3c9bc8fe4b9bc9205468bd6d3a544f164"
         },
         "http": {
           "status": "READY",
-          "previewStatus": 200
+          "previewStatus": 200,
+          "productionStatus": 200,
+          "productionDeploymentState": "READY"
         }
       },
       "decision": "PASS",
-      "next": "Verify the production deployment after merge, then connect one real analytics provider and confirm a real VISIT or TRIAL_STARTED event end-to-end."
+      "next": "Connect one real analytics provider and verify a real VISIT or TRIAL_STARTED event end-to-end; keep revenue NOT_CONNECTED until payment evidence exists."
     }
   ]
 }
