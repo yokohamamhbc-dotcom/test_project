@@ -18,10 +18,12 @@ jobs:
           test -f loop/experiments.json
           test -f loop/business.json
           test -f loop/events.json
+          test -f scripts/analytics-probe.mjs
           grep -q 'Loop Engineering Lab' index.html
           grep -q 'style.css' index.html
           grep -q 'app.js' index.html
           node --check app.js
+          node --check scripts/analytics-probe.mjs
           node - <<'NODE'
           const business=require('./loop/business.json');
           const events=require('./loop/events.json');
@@ -33,11 +35,24 @@ jobs:
           const ids=new Set();
           const decisions=new Set(["PENDING","PASS","FAIL"]); const evidenceStatuses=new Set(["PENDING","PASS","FAIL","READY"]);
           for(const e of x.experiments){
-            if(!e.id||ids.has(e.id)||!e.hypothesis||!e.change||!decisions.has(e.decision)||!e.next) process.exit(1); if(e.id==="EXP-006"||e.id==="EXP-007"||e.id==="EXP-009"||e.id==="EXP-010"||e.id==="EXP-011"||e.id==="EXP-012"||e.id==="EXP-013"||e.id==="EXP-014"||e.id==="EXP-015"){const v=e.evidence;if(!v||!v.ci||!v.preview||!v.production||!v.http||!evidenceStatuses.has(v.ci.status)||!evidenceStatuses.has(v.preview.status)||!evidenceStatuses.has(v.production.status)||!evidenceStatuses.has(v.http.status)) process.exit(1);} else if(!Array.isArray(e.evidence)||e.evidence.length<1) process.exit(1);
+            if(!e.id||ids.has(e.id)||!e.hypothesis||!e.change||!decisions.has(e.decision)||!e.next) process.exit(1);
+            if(e.id==="EXP-006"||e.id==="EXP-007"||e.id==="EXP-009"||e.id==="EXP-010"||e.id==="EXP-011"||e.id==="EXP-012"||e.id==="EXP-013"||e.id==="EXP-014"||e.id==="EXP-015"){
+              const v=e.evidence;
+              if(!v||!v.ci||!v.preview||!v.production||!v.http||!evidenceStatuses.has(v.ci.status)||!evidenceStatuses.has(v.preview.status)||!evidenceStatuses.has(v.production.status)||!evidenceStatuses.has(v.http.status)) process.exit(1);
+            } else if(!Array.isArray(e.evidence)||e.evidence.length<1) process.exit(1);
             ids.add(e.id);
           }
           console.log("experiments="+x.experiments.length);
           NODE
+      - name: Probe Vercel Web Analytics API
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          set -euo pipefail
+          mkdir -p probe-output
+          node scripts/analytics-probe.mjs | tee probe-output/analytics.json
+      - name: Generate machine-readable loop report
+        run: |
           cat > loop-report.json <<'JSON'
           {
             "schemaVersion": 1,
@@ -53,3 +68,8 @@ jobs:
         with:
           name: loop-report
           path: loop-report.json
+      - name: Publish analytics probe result
+        uses: actions/upload-artifact@v4
+        with:
+          name: analytics-probe
+          path: probe-output/analytics.json
