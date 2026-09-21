@@ -102,7 +102,7 @@
       "evidence": {
         "ci": {
           "status": "PASS",
-          "runId": 35516263008,
+          "runId": 35551690799,
           "conclusion": "success"
         },
         "preview": {
@@ -112,16 +112,20 @@
           "commit": "e0687cc58e45015775aab443878e2415c8f59cbb"
         },
         "production": {
-          "status": "PENDING"
+          "status": "READY",
+          "deploymentId": "dpl_BZNbcJG7Ccu1FRRk2Q3BYG3GhjVP",
+          "commit": "121dbc26fdcc2b40b306f9275d2663b90d1d61f9",
+          "httpStatus": 200
         },
         "http": {
           "status": "READY",
           "previewStatus": 200,
-          "productionDeploymentState": "PENDING"
+          "productionStatus": 200,
+          "productionDeploymentState": "READY"
         }
       },
-      "decision": "PENDING",
-      "next": "Connect a real analytics and payment data source, then run the first revenue experiment against observed customer behavior."
+      "decision": "PASS",
+      "next": "Connect one real analytics source and one payment/revenue source, then run the first observed revenue experiment without treating placeholders as business outcomes."
     }
   ]
 }
