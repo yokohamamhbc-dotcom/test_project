@@ -158,6 +158,32 @@
       },
       "decision": "PASS",
       "next": "Connect a real analytics source and define a concrete offer/pricing assumption, then run the smallest externally observable conversion experiment; keep revenue NOT_CONNECTED until payment evidence exists."
+    },
+    {
+      "id": "EXP-010",
+      "hypothesis": "A provider-neutral analytics event contract with explicit local-vs-connected state will make the first external behavior measurement safe to integrate without fabricating customer or revenue data.",
+      "change": "Add an analytics integration contract describing required events, identity, observation window, provider state, and connection guardrails; keep the provider unconnected until a real analytics source is configured.",
+      "evidence": {
+        "ci": {
+          "status": "PASS",
+          "runId": 35552506508,
+          "conclusion": "success"
+        },
+        "preview": {
+          "status": "READY",
+          "deploymentId": "dpl_58525C2r2qZQVsNRwZSToRySvH8r",
+          "httpStatus": 200
+        },
+        "production": {
+          "status": "PENDING"
+        },
+        "http": {
+          "status": "READY",
+          "previewStatus": 200
+        }
+      },
+      "decision": "PASS",
+      "next": "Verify the production deployment after merge, then connect one real analytics provider and confirm a real VISIT or TRIAL_STARTED event end-to-end."
     }
   ]
 }
