@@ -21,15 +21,14 @@ jobs:
           grep -q 'app.js' index.html
           echo "HTML_REFERENCES=PASS"
 
-      - name: Verify JavaScript syntax
-        run: |
-          set -euo pipefail
-          node --check app.js
-          echo "APP_JS_SYNTAX=PASS"
-          node --check scripts/analytics-probe.mjs
-          echo "ANALYTICS_PROBE_SYNTAX=PASS"
-          node --check api/checkout.js
-          echo "CHECKOUT_API_SYNTAX=PASS"
+      - name: Verify app.js syntax
+        run: node --check app.js
+
+      - name: Verify analytics probe syntax
+        run: node --check scripts/analytics-probe.mjs
+
+      - name: Verify checkout API syntax
+        run: node --check api/checkout.js
 
       - name: Verify JSON and experiment contracts
         run: |
