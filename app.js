@@ -188,3 +188,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const button = document.getElementById("offerInterest");
   if (button) button.addEventListener("click", recordOfferInterest);
 });
+
+function runAuditDemo(){
+  const bottleneck=$("#demoBottleneck")?.value||"deploy";
+  const cadence=$("#demoCadence")?.value||"rare";
+  const map={
+    deploy:["Deployが改善ループの待ち時間になっている可能性","CI→Preview→Productionの各段階に所要時間と失敗理由を記録する"],
+    measurement:["観測が改善ループの弱点になっている可能性","VISIT→ACTIVATION→CHECKOUT→PURCHASEを一貫したイベント契約で計測する"],
+    conversion:["価値提示から購入までの変換点が未検証の可能性","Offer→価値プレビュー→Checkoutの各段階を小さな実験として比較する"],
+    retention:["一度の利用後に次の行動へつながる設計が未検証の可能性","初回成功後の再訪・再実行イベントを定義し、次の実験へ接続する"]
+  };
+  const [finding,action]=map[bottleneck];
+  const result=$("#auditDemoResult");
+  if(result){
+    result.innerHTML="<span>PRELIMINARY FINDING</span><strong>"+finding+"</strong><p>次の実験候補："+action+"。</p>";
+  }
+  trackBusinessEvent("AUDIT_DEMO_COMPLETED",{experimentId:"EXP-023",bottleneck,cadence});
+  log("audit_demo."+bottleneck,"OBSERVED LOCALLY");
+}
+document.addEventListener("DOMContentLoaded",()=>{
+  const b=$("#runAuditDemo");
+  if(b) b.addEventListener("click",runAuditDemo);
+});
