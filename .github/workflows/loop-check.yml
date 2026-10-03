@@ -68,7 +68,7 @@ jobs:
         run: |
           node - <<'NODE'
           const handler=require("./api/checkout.js").default;
-          const req={query:{offer:"audit",mode:"status"}};
+          const req={url:"/api/checkout?offer=audit&mode=status"};
           const res={
             statusCode:200,
             body:null,
