@@ -565,6 +565,33 @@
       },
       "decision": "PENDING",
       "next": "Observe completion and checkout-intent events after deployment; compare behavior only when real analytics is connected."
+    },
+    {
+      "id": "EXP-024",
+      "hypothesis": "A direct CTA revealed only after the free diagnostic result will reduce the gap between experienced value and the paid audit decision.",
+      "change": "Reveal a contextual Audit CTA after the local diagnostic completes, while keeping checkout truthfully disconnected until payment configuration exists.",
+      "evidence": {
+        "ci": {
+          "status": "PENDING"
+        },
+        "preview": {
+          "status": "PENDING"
+        },
+        "production": {
+          "status": "PENDING"
+        },
+        "http": {
+          "status": "PENDING"
+        },
+        "analytics": {
+          "status": "PENDING"
+        },
+        "payment": {
+          "status": "PENDING"
+        }
+      },
+      "decision": "PENDING",
+      "next": "Observe demo completion and subsequent checkout-intent behavior once real analytics is connected."
     }
   ]
 }
