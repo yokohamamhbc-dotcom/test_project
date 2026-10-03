@@ -202,6 +202,7 @@ function runAuditDemo(){
   const result=$("#auditDemoResult");
   if(result){
     result.innerHTML="<span>PRELIMINARY FINDING</span><strong>"+finding+"</strong><p>次の実験候補："+action+"。</p>";
+    const cta=$("#demoCheckoutCta"); if(cta){cta.hidden=false; cta.textContent="この診断をもとにAuditを検討する →";}
   }
   trackBusinessEvent("AUDIT_DEMO_COMPLETED",{experimentId:"EXP-023",bottleneck,cadence});
   log("audit_demo."+bottleneck,"OBSERVED LOCALLY");
