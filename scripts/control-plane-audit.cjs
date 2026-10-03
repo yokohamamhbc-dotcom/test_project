@@ -2,7 +2,7 @@ const fs=require("fs");
 const experiments=JSON.parse(fs.readFileSync("loop/experiments.json","utf8"));
 const business=JSON.parse(fs.readFileSync("loop/business.json","utf8"));
 const events=JSON.parse(fs.readFileSync("loop/events.json","utf8"));
-const structured=new Set(["EXP-006","EXP-007","EXP-009","EXP-010","EXP-011","EXP-012","EXP-013","EXP-014","EXP-015","EXP-016","EXP-017","EXP-018","EXP-019","EXP-020","EXP-021","EXP-023","EXP-024"]);
+const structured=new Set(["EXP-006","EXP-007","EXP-009","EXP-010","EXP-011","EXP-012","EXP-013","EXP-014","EXP-015","EXP-016","EXP-017","EXP-018","EXP-019","EXP-020","EXP-021","EXP-023","EXP-024","EXP-025"]);
 const statuses=new Set(["PENDING","PASS","FAIL","READY"]);
 const errors=[]; const ids=new Set();
 for(const e of experiments.experiments){
