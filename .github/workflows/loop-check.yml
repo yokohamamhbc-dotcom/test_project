@@ -1,5 +1,7 @@
 name: Loop Engineering Check
 on:
+  schedule:
+    - cron: "17 * * * *"
   push:
     branches: ["main"]
   pull_request:
@@ -12,7 +14,7 @@ jobs:
       - name: Verify required files
         run: |
           set -euo pipefail
-          for f in index.html style.css app.js loop/experiments.json loop/business.json loop/events.json scripts/analytics-probe.mjs api/checkout.js; do
+          for f in index.html style.css app.js loop/experiments.json loop/business.json loop/events.json scripts/analytics-probe.mjs scripts/revenue-loop-sentinel.mjs scripts/production-smoke.mjs api/checkout.js; do
             test -f "$f"
             echo "FILE_OK=$f"
           done
@@ -26,6 +28,11 @@ jobs:
 
       - name: Verify analytics probe syntax
         run: node --check scripts/analytics-probe.mjs
+
+      - name: Verify autonomous sentinel syntax
+        run: |
+          node --check scripts/revenue-loop-sentinel.mjs
+          node --check scripts/production-smoke.mjs
 
       - name: Verify checkout API syntax
         run: node --check api/checkout.js
@@ -77,6 +84,21 @@ jobs:
       - name: Run control plane audit
         run: node scripts/control-plane-audit.cjs
 
+      - name: Run autonomous revenue-loop sentinel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          CHECKOUT_URL: ${{ secrets.CHECKOUT_URL }}
+        run: |
+          mkdir -p probe-output
+          node scripts/revenue-loop-sentinel.mjs | tee probe-output/revenue-loop-sentinel.json
+
+      - name: Run production smoke test when configured
+        env:
+          PRODUCTION_URL: ${{ secrets.PRODUCTION_URL }}
+        run: |
+          mkdir -p probe-output
+          node scripts/production-smoke.mjs | tee probe-output/production-smoke.json
+
       - name: Probe Vercel Web Analytics API
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
@@ -106,3 +128,13 @@ jobs:
         with:
           name: analytics-probe
           path: probe-output/analytics.json
+      - name: Publish autonomous sentinel result
+        uses: actions/upload-artifact@v4
+        with:
+          name: revenue-loop-sentinel
+          path: probe-output/revenue-loop-sentinel.json
+      - name: Publish production smoke result
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-smoke
+          path: probe-output/production-smoke.json
