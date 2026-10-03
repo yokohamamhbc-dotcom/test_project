@@ -25,9 +25,11 @@ jobs:
         run: |
           set -euo pipefail
           node --check app.js
+          echo "APP_JS_SYNTAX=PASS"
           node --check scripts/analytics-probe.mjs
+          echo "ANALYTICS_PROBE_SYNTAX=PASS"
           node --check api/checkout.js
-          echo "JS_SYNTAX=PASS"
+          echo "CHECKOUT_API_SYNTAX=PASS"
 
       - name: Verify JSON and experiment contracts
         run: |
