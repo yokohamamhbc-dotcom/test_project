@@ -46,6 +46,23 @@ jobs:
           }
           console.log("experiments="+x.experiments.length);
           NODE
+      - name: Test checkout contract without payment credentials
+        run: |
+          node - <<'NODE'
+          const handler=require("./api/checkout.js").default;
+          const req={query:{offer:"audit",mode:"status"}};
+          const res={
+            statusCode:200,
+            body:null,
+            status(n){this.statusCode=n;return this;},
+            json(v){this.body=v;}
+          };
+          delete process.env.CHECKOUT_URL;
+          handler(req,res);
+          if(res.statusCode!==200 || res.body?.configured!==false) process.exit(1);
+          console.log("CHECKOUT_CONTRACT=PASS");
+          NODE
+
       - name: Probe Vercel Web Analytics API
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
