@@ -94,7 +94,7 @@ jobs:
 
       - name: Run production smoke test when configured
         env:
-          PRODUCTION_URL: ${{ secrets.PRODUCTION_URL }}
+          PRODUCTION_URL: https://test-project-yokohamamhbc-9529.vercel.app
         run: |
           mkdir -p probe-output
           node scripts/production-smoke.mjs | tee probe-output/production-smoke.json
