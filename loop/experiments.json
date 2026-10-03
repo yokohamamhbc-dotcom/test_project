@@ -511,6 +511,33 @@
       },
       "decision": "PENDING",
       "next": "Let the scheduled sentinel run after credentials are configured; verify authenticated analytics receipt and real payment evidence before promoting any business state."
+    },
+    {
+      "id": "EXP-021",
+      "hypothesis": "A concrete deliverable description should make the paid offer easier to evaluate than a generic audit description.",
+      "change": "Add a five-part deliverable preview covering diagnosis, bottleneck identification, experiment backlog, measurement design, and next action.",
+      "evidence": {
+        "ci": {
+          "status": "PENDING"
+        },
+        "preview": {
+          "status": "PENDING"
+        },
+        "production": {
+          "status": "PENDING"
+        },
+        "http": {
+          "status": "PENDING"
+        },
+        "analytics": {
+          "status": "PENDING"
+        },
+        "payment": {
+          "status": "PENDING"
+        }
+      },
+      "decision": "PENDING",
+      "next": "Observe offer interaction and checkout intent after the deliverable clarification is deployed; do not infer purchase or revenue from clicks."
     }
   ]
 }
