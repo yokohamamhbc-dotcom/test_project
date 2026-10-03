@@ -545,16 +545,20 @@
       "change": "Add a three-question local diagnostic that returns a preliminary finding and next experiment without claiming purchase or revenue.",
       "evidence": {
         "ci": {
-          "status": "PENDING"
+          "status": "PASS",
+          "run": 83
         },
         "preview": {
-          "status": "PENDING"
+          "status": "READY",
+          "deployment": "dpl_A77SyAEk9aboT5x2f1U4ruHWMX9R"
         },
         "production": {
-          "status": "PENDING"
+          "status": "READY",
+          "deployment": "dpl_Ho7njMz6YRvJUGVcP1P9kXzHC2mX"
         },
         "http": {
-          "status": "PENDING"
+          "status": "PASS",
+          "code": 200
         },
         "analytics": {
           "status": "PENDING"
@@ -563,7 +567,7 @@
           "status": "PENDING"
         }
       },
-      "decision": "PENDING",
+      "decision": "PASS",
       "next": "Observe completion and checkout-intent events after deployment; compare behavior only when real analytics is connected."
     },
     {
@@ -572,16 +576,20 @@
       "change": "Reveal a contextual Audit CTA after the local diagnostic completes, while keeping checkout truthfully disconnected until payment configuration exists.",
       "evidence": {
         "ci": {
-          "status": "PENDING"
+          "status": "PASS",
+          "run": 86
         },
         "preview": {
-          "status": "PENDING"
+          "status": "READY",
+          "deployment": "dpl_89xigCam2Psf62VAEs9LqU7HGUTG"
         },
         "production": {
-          "status": "PENDING"
+          "status": "READY",
+          "deployment": "dpl_CqpQtpZgQnipLZ2F2SczP3nFAcLj"
         },
         "http": {
-          "status": "PENDING"
+          "status": "PASS",
+          "code": 200
         },
         "analytics": {
           "status": "PENDING"
@@ -590,7 +598,7 @@
           "status": "PENDING"
         }
       },
-      "decision": "PENDING",
+      "decision": "PASS",
       "next": "Observe demo completion and subsequent checkout-intent behavior once real analytics is connected."
     },
     {
@@ -599,19 +607,24 @@
       "change": "Replace framework req.query access with WHATWG URL parsing while preserving checkout/status behavior.",
       "evidence": {
         "ci": {
-          "status": "PENDING"
+          "status": "PASS",
+          "run": 89
         },
         "preview": {
-          "status": "PENDING"
+          "status": "READY",
+          "deployment": "dpl_3H6h6yXxqiCRcrZQF7TsnvRgKquq"
         },
         "production": {
-          "status": "PENDING"
+          "status": "READY",
+          "deployment": "dpl_9LgH12XRXvdezQZAtLycodQZqVib"
         },
         "http": {
-          "status": "PENDING"
+          "status": "PASS",
+          "code": 200
         },
         "runtimeErrors": {
-          "status": "PENDING"
+          "status": "PASS",
+          "observation": "No runtime errors in selected 15m window after deployment"
         },
         "analytics": {
           "status": "PENDING"
@@ -620,7 +633,7 @@
           "status": "PENDING"
         }
       },
-      "decision": "PENDING",
+      "decision": "PASS",
       "next": "Recheck runtime error aggregation after deployment; if warning persists, attribute it to the platform/runtime rather than application parsing."
     }
   ]
