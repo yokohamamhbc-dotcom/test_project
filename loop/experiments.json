@@ -538,6 +538,33 @@
       },
       "decision": "PENDING",
       "next": "Observe offer interaction and checkout intent after the deliverable clarification is deployed; do not infer purchase or revenue from clicks."
+    },
+    {
+      "id": "EXP-023",
+      "hypothesis": "A free, concrete diagnostic preview can let a visitor experience the value of the paid audit before checkout.",
+      "change": "Add a three-question local diagnostic that returns a preliminary finding and next experiment without claiming purchase or revenue.",
+      "evidence": {
+        "ci": {
+          "status": "PENDING"
+        },
+        "preview": {
+          "status": "PENDING"
+        },
+        "production": {
+          "status": "PENDING"
+        },
+        "http": {
+          "status": "PENDING"
+        },
+        "analytics": {
+          "status": "PENDING"
+        },
+        "payment": {
+          "status": "PENDING"
+        }
+      },
+      "decision": "PENDING",
+      "next": "Observe completion and checkout-intent events after deployment; compare behavior only when real analytics is connected."
     }
   ]
 }
