@@ -408,26 +408,40 @@
       "change": "Add a priced audit offer, a Vercel serverless checkout endpoint driven by CHECKOUT_URL, checkout readiness diagnostics, and ACTIVATION tracking after the first completed loop.",
       "evidence": {
         "ci": {
-          "status": "PENDING"
+          "status": "PASS",
+          "runId": 37104730336,
+          "conclusion": "success"
         },
         "preview": {
-          "status": "PENDING"
+          "status": "READY",
+          "deploymentId": "dpl_6VjWCmXVQtCjK7gfDpAnL5pMoJSQ",
+          "httpStatus": 200,
+          "commit": "3bf721dd68e78f48cae1eb4c09153e07ad2fa612"
         },
         "production": {
-          "status": "PENDING"
+          "status": "READY",
+          "deploymentId": "dpl_4hsSrjXNpEn863YAEpFr3ttKJ2JG",
+          "httpStatus": 200,
+          "commit": "b92c18fc8084338f3ab6efd3ce9b66c6bcabd8ae"
         },
         "http": {
-          "status": "PENDING"
+          "status": "PASS",
+          "previewStatus": 200,
+          "productionStatus": 200,
+          "productionDeploymentState": "READY"
         },
         "analytics": {
-          "status": "PENDING"
+          "status": "PENDING",
+          "note": "Analytics credential path remains blocked by the existing VERCEL_TOKEN authentication boundary; no analytics or revenue data was claimed."
         },
         "payment": {
-          "status": "PENDING"
+          "status": "PENDING",
+          "checkoutStatus": "NOT_CONNECTED",
+          "note": "Both preview and production checkout status endpoints return configured=false; no PURCHASE or revenue was claimed."
         }
       },
-      "decision": "PENDING",
-      "next": "Deploy and verify the checkout endpoint returns an explicit NOT_CONNECTED state; then connect a real payment URL through a server-side environment variable and verify a real checkout redirect before recording PURCHASE or revenue."
+      "decision": "PASS",
+      "next": "Connect a real payment provider checkout URL through Vercel environment configuration and a real VERCEL_TOKEN through GitHub Actions; then verify the first real checkout and analytics receipts before promoting PURCHASE or revenue."
     }
   ]
 }
