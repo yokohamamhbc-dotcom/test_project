@@ -1,14 +1,45 @@
 {
   "schemaVersion": 1,
   "purpose": "Business control plane for turning product experiments into measurable revenue outcomes",
-  "northStar": {"metric":"revenue","unit":"JPY","status":"NOT_CONNECTED"},
+  "northStar": {
+    "metric": "revenue",
+    "unit": "JPY",
+    "status": "NOT_CONNECTED"
+  },
   "funnel": [
-    {"event":"VISIT","meaning":"A potential customer reaches the product."},
-    {"event":"ACTIVATION","meaning":"The customer reaches first meaningful value."},
-    {"event":"TRIAL_STARTED","meaning":"The customer starts a monetizable trial or workflow."},
-    {"event":"PURCHASE","meaning":"The customer completes a paid transaction."},
-    {"event":"RETENTION","meaning":"The customer returns and continues receiving value."}
+    {
+      "event": "VISIT",
+      "meaning": "A potential customer reaches the product."
+    },
+    {
+      "event": "ACTIVATION",
+      "meaning": "The customer reaches first meaningful value."
+    },
+    {
+      "event": "TRIAL_STARTED",
+      "meaning": "The customer starts a monetizable trial or workflow."
+    },
+    {
+      "event": "PURCHASE",
+      "meaning": "The customer completes a paid transaction."
+    },
+    {
+      "event": "RETENTION",
+      "meaning": "The customer returns and continues receiving value."
+    }
   ],
   "experimentRule": "Every business experiment must name a target metric, expected direction, observation window, and decision rule.",
-  "guardrail": "No business metric is reported as observed until a real data source is connected."
+  "guardrail": "No business metric is reported as observed until a real data source is connected.",
+  "offer": {
+    "id": "audit",
+    "name": "Loop Engineering Audit",
+    "priceJPY": 49800,
+    "status": "NOT_CONNECTED",
+    "checkoutPath": "/api/checkout?offer=audit",
+    "paymentRule": "PURCHASE and revenue remain unobserved until a real payment provider confirms a completed transaction."
+  },
+  "connectionRequirements": {
+    "checkoutEnvironmentVariable": "CHECKOUT_URL",
+    "analyticsCredential": "VERCEL_TOKEN"
+  }
 }
