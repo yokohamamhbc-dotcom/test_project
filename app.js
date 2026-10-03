@@ -88,7 +88,9 @@ function updateCheckoutState(){
       else { status.textContent="NOT CONNECTED"; }
     }).catch(()=>{status.textContent="NOT CONNECTED";});
 }
-\nasync function runLoop(){
+
+
+async function runLoop(){
   const btn=$("#runLoop"); btn.disabled=true;
   const started=performance.now(); runs++;
   $("#iterations").textContent=String(runs).padStart(2,"0"); $("#telemetry").textContent="RUNNING";
