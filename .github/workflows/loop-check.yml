@@ -29,6 +29,7 @@ jobs:
 
       - name: Verify checkout API syntax
         run: node --check api/checkout.js
+          node --check scripts/control-plane-audit.cjs
 
       - name: Verify JSON and experiment contracts
         run: |
@@ -72,6 +73,9 @@ jobs:
           if(res.statusCode!==200 || res.body?.configured!==false) process.exit(1);
           console.log("CHECKOUT_CONTRACT=PASS");
           NODE
+
+      - name: Run control plane audit
+        run: node scripts/control-plane-audit.cjs
 
       - name: Probe Vercel Web Analytics API
         env:
