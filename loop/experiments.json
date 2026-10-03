@@ -592,6 +592,36 @@
       },
       "decision": "PENDING",
       "next": "Observe demo completion and subsequent checkout-intent behavior once real analytics is connected."
+    },
+    {
+      "id": "EXP-025",
+      "hypothesis": "Using the WHATWG URL API directly for checkout query parsing can remove the runtime url.parse deprecation warning from the revenue-critical endpoint.",
+      "change": "Replace framework req.query access with WHATWG URL parsing while preserving checkout/status behavior.",
+      "evidence": {
+        "ci": {
+          "status": "PENDING"
+        },
+        "preview": {
+          "status": "PENDING"
+        },
+        "production": {
+          "status": "PENDING"
+        },
+        "http": {
+          "status": "PENDING"
+        },
+        "runtimeErrors": {
+          "status": "PENDING"
+        },
+        "analytics": {
+          "status": "PENDING"
+        },
+        "payment": {
+          "status": "PENDING"
+        }
+      },
+      "decision": "PENDING",
+      "next": "Recheck runtime error aggregation after deployment; if warning persists, attribute it to the platform/runtime rather than application parsing."
     }
   ]
 }
