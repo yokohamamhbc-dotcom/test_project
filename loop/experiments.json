@@ -449,26 +449,41 @@
       "change": "Add a CI audit that validates analytics/payment connection guards, prevents PURCHASE/revenue claims while sources are disconnected, verifies every structured experiment has coherent evidence fields, and checks the current ledger for known contradiction patterns.",
       "evidence": {
         "ci": {
-          "status": "PENDING"
+          "status": "PASS",
+          "runId": 37115365012,
+          "conclusion": "success"
         },
         "preview": {
-          "status": "PENDING"
+          "status": "READY",
+          "deploymentId": "dpl_BSLWcWxbuYPVbLWjiPdSnV3zdfTg",
+          "httpStatus": 200,
+          "commit": "a18d06a5bc38461505c756d3ef35c85188ac042e"
         },
         "production": {
-          "status": "PENDING"
+          "status": "READY",
+          "deploymentId": "dpl_GwNKeb1x7y9TgbBrotbpA5FVah74",
+          "httpStatus": 200,
+          "commit": "abb8307da76584da6fcc3375727a72622a338598"
         },
         "http": {
-          "status": "PENDING"
+          "status": "PASS",
+          "previewStatus": 200,
+          "productionStatus": 200,
+          "productionDeploymentState": "READY",
+          "checkoutStatus": "NOT_CONNECTED"
         },
         "analytics": {
-          "status": "PENDING"
+          "status": "PENDING",
+          "note": "Vercel Analytics still requires the external VERCEL_TOKEN credential; no analytics data was claimed."
         },
         "payment": {
-          "status": "PENDING"
+          "status": "PENDING",
+          "checkoutStatus": "NOT_CONNECTED",
+          "note": "Production checkout endpoint was independently verified HTTP 200 and explicitly reports configured=false; no purchase or revenue was claimed."
         }
       },
-      "decision": "PENDING",
-      "next": "Run the control-plane audit; if it passes, use it as a mandatory gate for future monetization and analytics experiments."
+      "decision": "PASS",
+      "next": "Connect real Analytics and payment credentials through secure external configuration; the control-plane gate will prevent premature promotion of observed business metrics."
     }
   ]
 }
