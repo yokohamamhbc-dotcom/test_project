@@ -401,6 +401,33 @@
       },
       "decision": "PASS",
       "next": "Provision a Vercel API credential through a secure user-controlled path, add it to GitHub Actions as VERCEL_TOKEN, rerun the probe, and record only observed visits/events counts."
+    },
+    {
+      "id": "EXP-018",
+      "hypothesis": "A server-side checkout adapter plus explicit launch-ready offer can turn the existing purchase-intent probe into a real payment connection point without exposing credentials or claiming revenue before a payment provider is connected.",
+      "change": "Add a priced audit offer, a Vercel serverless checkout endpoint driven by CHECKOUT_URL, checkout readiness diagnostics, and ACTIVATION tracking after the first completed loop.",
+      "evidence": {
+        "ci": {
+          "status": "PENDING"
+        },
+        "preview": {
+          "status": "PENDING"
+        },
+        "production": {
+          "status": "PENDING"
+        },
+        "http": {
+          "status": "PENDING"
+        },
+        "analytics": {
+          "status": "PENDING"
+        },
+        "payment": {
+          "status": "PENDING"
+        }
+      },
+      "decision": "PENDING",
+      "next": "Deploy and verify the checkout endpoint returns an explicit NOT_CONNECTED state; then connect a real payment URL through a server-side environment variable and verify a real checkout redirect before recording PURCHASE or revenue."
     }
   ]
 }
