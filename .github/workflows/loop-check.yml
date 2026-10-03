@@ -1,5 +1,7 @@
 name: Loop Engineering Check
 on:
+  schedule:
+    - cron: "17 * * * *"
   push:
     branches: ["main"]
   pull_request:
@@ -12,7 +14,7 @@ jobs:
       - name: Verify required files
         run: |
           set -euo pipefail
-          for f in index.html style.css app.js loop/experiments.json loop/business.json loop/events.json scripts/analytics-probe.mjs api/checkout.js; do
+          for f in index.html style.css app.js loop/experiments.json loop/business.json loop/events.json scripts/analytics-probe.mjs scripts/revenue-loop-sentinel.mjs scripts/production-smoke.mjs api/checkout.js; do
             test -f "$f"
             echo "FILE_OK=$f"
           done
@@ -26,6 +28,11 @@ jobs:
 
       - name: Verify analytics probe syntax
         run: node --check scripts/analytics-probe.mjs
+
+      - name: Verify autonomous sentinel syntax
+        run: |
+          node --check scripts/revenue-loop-sentinel.mjs
+          node --check scripts/production-smoke.mjs
 
       - name: Verify checkout API syntax
         run: node --check api/checkout.js
@@ -47,7 +54,7 @@ jobs:
           const evidenceStatuses=new Set(["PENDING","PASS","FAIL","READY"]);
           for(const e of x.experiments){
             if(!e.id||ids.has(e.id)||!e.hypothesis||!e.change||!decisions.has(e.decision)||!e.next) throw new Error("EXPERIMENT_HEADER_FAIL:"+e.id);
-            if(e.id==="EXP-006"||e.id==="EXP-007"||e.id==="EXP-009"||e.id==="EXP-010"||e.id==="EXP-011"||e.id==="EXP-012"||e.id==="EXP-013"||e.id==="EXP-014"||e.id==="EXP-015"||e.id==="EXP-016"||e.id==="EXP-017"||e.id==="EXP-018"||e.id==="EXP-019"){
+            if(e.id==="EXP-006"||e.id==="EXP-007"||e.id==="EXP-009"||e.id==="EXP-010"||e.id==="EXP-011"||e.id==="EXP-012"||e.id==="EXP-013"||e.id==="EXP-014"||e.id==="EXP-015"||e.id==="EXP-016"||e.id==="EXP-017"||e.id==="EXP-018"||e.id==="EXP-019"||e.id==="EXP-020"){
               const v=e.evidence;
               if(!v||!v.ci||!v.preview||!v.production||!v.http||!evidenceStatuses.has(v.ci.status)||!evidenceStatuses.has(v.preview.status)||!evidenceStatuses.has(v.production.status)||!evidenceStatuses.has(v.http.status)) throw new Error("STRUCTURED_EVIDENCE_FAIL:"+e.id);
             } else if(!Array.isArray(e.evidence)||e.evidence.length<1) throw new Error("LEGACY_EVIDENCE_FAIL:"+e.id);
@@ -76,6 +83,21 @@ jobs:
 
       - name: Run control plane audit
         run: node scripts/control-plane-audit.cjs
+
+      - name: Run autonomous revenue-loop sentinel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          CHECKOUT_URL: ${{ secrets.CHECKOUT_URL }}
+        run: |
+          mkdir -p probe-output
+          node scripts/revenue-loop-sentinel.mjs | tee probe-output/revenue-loop-sentinel.json
+
+      - name: Run production smoke test when configured
+        env:
+          PRODUCTION_URL: ${{ secrets.PRODUCTION_URL }}
+        run: |
+          mkdir -p probe-output
+          node scripts/production-smoke.mjs | tee probe-output/production-smoke.json
 
       - name: Probe Vercel Web Analytics API
         env:
@@ -106,3 +128,13 @@ jobs:
         with:
           name: analytics-probe
           path: probe-output/analytics.json
+      - name: Publish autonomous sentinel result
+        uses: actions/upload-artifact@v4
+        with:
+          name: revenue-loop-sentinel
+          path: probe-output/revenue-loop-sentinel.json
+      - name: Publish production smoke result
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-smoke
+          path: probe-output/production-smoke.json
