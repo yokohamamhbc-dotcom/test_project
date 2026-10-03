@@ -71,7 +71,24 @@ function log(msg,state="OK"){
   terminal.append(d); terminal.scrollTop=terminal.scrollHeight;
 }
 
-async function runLoop(){
+
+function trackActivationOnce(){
+  if(localStorage.getItem("loop_activation_sent")) return;
+  localStorage.setItem("loop_activation_sent","1");
+  trackBusinessEvent("ACTIVATION",{source:"first_loop_completion"});
+}
+function updateCheckoutState(){
+  const status=$("#checkoutStatus"), button=$("#checkoutButton");
+  if(!status||!button) return;
+  status.textContent="PAYMENT CONFIG PENDING";
+  fetch("/api/checkout?offer=audit&mode=status",{cache:"no-store"})
+    .then(r=>r.json().then(data=>({ok:r.ok,data})))
+    .then(({ok,data})=>{
+      if(ok&&data.configured){ status.textContent="CHECKOUT READY"; button.classList.remove("secondary"); }
+      else { status.textContent="NOT CONNECTED"; }
+    }).catch(()=>{status.textContent="NOT CONNECTED";});
+}
+\nasync function runLoop(){
   const btn=$("#runLoop"); btn.disabled=true;
   const started=performance.now(); runs++;
   $("#iterations").textContent=String(runs).padStart(2,"0"); $("#telemetry").textContent="RUNNING";
@@ -84,7 +101,7 @@ async function runLoop(){
   history.push({at:new Date().toISOString(),ms,run:runs}); history=history.slice(-20);
   localStorage.setItem("loopRuns",runs); localStorage.setItem("loopHistory",JSON.stringify(history));
   $("#persisted").textContent=String(history.length).padStart(2,"0");
-  $("#feedback").textContent="LEARNED"; $("#latency").textContent=ms+"ms"; $("#state").textContent="READY"; $("#telemetry").textContent="STREAMING";
+  $("#feedback").textContent="LEARNED"; $("#latency").textContent=ms+"ms"; $("#state").textContent="READY"; $("#telemetry").textContent="STREAMING"; trackActivationOnce();
   log("feedback.signal()","NEW"); log("next_iteration.ready()","READY"); btn.disabled=false;
 }
 
@@ -143,6 +160,7 @@ $("#chaosTest").addEventListener("click",chaosRecovery);
 selfTest();
 loadBusiness();
 loadLedger();
+updateCheckoutState();
 
 function recordOfferInterest() {
   const status = document.getElementById("offerStatus");
