@@ -1,6 +1,7 @@
 export default function handler(req,res) {
-  const offer=req.query?.offer||"audit";
-  const mode=req.query?.mode||"checkout";
+  const requestUrl=new URL(req.url||"/","https://loop-engineering.local");
+  const offer=requestUrl.searchParams.get("offer")||"audit";
+  const mode=requestUrl.searchParams.get("mode")||"checkout";
   const checkoutUrl=process.env.CHECKOUT_URL;
   if(mode==="status"){
     res.status(200).json({configured:Boolean(checkoutUrl),offer});
