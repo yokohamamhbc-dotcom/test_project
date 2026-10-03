@@ -442,6 +442,33 @@
       },
       "decision": "PASS",
       "next": "Connect a real payment provider checkout URL through Vercel environment configuration and a real VERCEL_TOKEN through GitHub Actions; then verify the first real checkout and analytics receipts before promoting PURCHASE or revenue."
+    },
+    {
+      "id": "EXP-019",
+      "hypothesis": "A machine-checkable control-plane audit can detect stale evidence, contradictory connection states, and unsafe claims before they reach production, making the revenue loop self-correcting rather than dependent on manual review.",
+      "change": "Add a CI audit that validates analytics/payment connection guards, prevents PURCHASE/revenue claims while sources are disconnected, verifies every structured experiment has coherent evidence fields, and checks the current ledger for known contradiction patterns.",
+      "evidence": {
+        "ci": {
+          "status": "PENDING"
+        },
+        "preview": {
+          "status": "PENDING"
+        },
+        "production": {
+          "status": "PENDING"
+        },
+        "http": {
+          "status": "PENDING"
+        },
+        "analytics": {
+          "status": "PENDING"
+        },
+        "payment": {
+          "status": "PENDING"
+        }
+      },
+      "decision": "PENDING",
+      "next": "Run the control-plane audit; if it passes, use it as a mandatory gate for future monetization and analytics experiments."
     }
   ]
 }
