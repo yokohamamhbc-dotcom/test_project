@@ -751,16 +751,24 @@
       "change": "Add a browser-generated JSON audit preview report containing the selected bottleneck, cadence, preliminary finding, next experiment, and explicit NOT_CONNECTED commercial state; emit AUDIT_REPORT_GENERATED only as an observed local/client event.",
       "evidence": {
         "ci": {
-          "status": "PENDING"
+          "status": "PASS",
+          "run": 115,
+          "conclusion": "success",
+          "headCommit": "cd2218993f184c767d6cc6f1a5d01c5e38427184"
         },
         "preview": {
-          "status": "PENDING"
+          "status": "READY",
+          "deployment": "dpl_2dRqqr9dFGFR7wmncynwGNysbiDY",
+          "commit": "8eed6fe47d5be96925076aa80658866d78d4555d"
         },
         "production": {
-          "status": "PENDING"
+          "status": "READY",
+          "deployment": "dpl_21uKFtFB8JQ5zQmaK9q2KcBn1WBd",
+          "commit": "cd2218993f184c767d6cc6f1a5d01c5e38427184"
         },
         "http": {
-          "status": "PENDING"
+          "status": "PASS",
+          "note": "Production smoke contract passed in CI run 115. No additional browser HTTP claim is made."
         },
         "analytics": {
           "status": "PENDING",
@@ -771,8 +779,8 @@
           "note": "Checkout remains disconnected; report generation is not a purchase or revenue event."
         }
       },
-      "decision": "PENDING",
-      "next": "Verify CI, Production READY, and the report-generation contract; once authenticated analytics exists, compare report generation against checkout intent without promoting local events into revenue."
+      "decision": "PASS",
+      "next": "Use the concrete report as the value bridge; once authenticated analytics and payment exist, compare report generation with checkout intent and real PURCHASE/REVENUE without promoting local events."
     }
   ]
 }
