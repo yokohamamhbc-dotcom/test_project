@@ -36,7 +36,9 @@ jobs:
 
       - name: Verify checkout API syntax
         run: node --check api/checkout.js
-          node --check scripts/control-plane-audit.cjs
+
+      - name: Verify control plane audit syntax
+        run: node --check scripts/control-plane-audit.cjs
 
       - name: Verify JSON and experiment contracts
         run: |
