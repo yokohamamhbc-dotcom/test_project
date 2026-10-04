@@ -670,6 +670,43 @@
       },
       "decision": "PASS",
       "next": "Keep the scheduled sentinel active; when external credentials become available, automatically verify authenticated Analytics and checkout, then record only real PURCHASE/REVENUE evidence."
+    },
+    {
+      "id": "EXP-027",
+      "hypothesis": "After the CI integrity fix is merged, the production revenue loop should retain a clean technical control plane while remaining explicitly disconnected from external Analytics and payment credentials.",
+      "change": "Isolate the control-plane audit syntax check in CI, merge the fix to main, and verify the resulting production deployment and commercial boundary state without promoting unobserved analytics, purchase, or revenue.",
+      "evidence": {
+        "ci": {
+          "status": "PASS",
+          "run": 102,
+          "conclusion": "success",
+          "headCommit": "da094bdcdac896433ab4cffd6ef4fbbf4f73cde3"
+        },
+        "preview": {
+          "status": "READY",
+          "deployment": "dpl_9MVevBfynhnvzhw8n8LSuBLz9cyM",
+          "commit": "da094bdcdac896433ab4cffd6ef4fbbf4f73cde3"
+        },
+        "production": {
+          "status": "READY",
+          "deployment": "dpl_2oHB9TQ3ZjzaX3jxp7QTakfmGXEq",
+          "commit": "6586bc58f1bb338e100dcfd622b7fd65c94b88fb"
+        },
+        "http": {
+          "status": "PASS",
+          "note": "Production deployment is READY on the merged main commit; the scheduled production smoke contract remains the authoritative HTTP check."
+        },
+        "analytics": {
+          "status": "PENDING",
+          "note": "No authenticated Analytics receipt; VERCEL_TOKEN is not configured."
+        },
+        "payment": {
+          "status": "PENDING",
+          "note": "Checkout remains disconnected; CHECKOUT_URL is not configured and no real PURCHASE/REVENUE transaction is observed."
+        }
+      },
+      "decision": "PASS",
+      "next": "Resolve the commercial boundary next: make the production customer path publicly reachable without weakening security, then connect real Analytics and payment credentials through user-controlled external configuration and let the scheduled sentinel verify only observed business events."
     }
   ]
 }
