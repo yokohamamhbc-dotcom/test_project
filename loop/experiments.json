@@ -635,6 +635,35 @@
       },
       "decision": "PASS",
       "next": "Recheck runtime error aggregation after deployment; if warning persists, attribute it to the platform/runtime rather than application parsing."
+    },
+    {
+      "id": "EXP-026",
+      "hypothesis": "When external credentials are absent, the production loop must remain explicitly disconnected-safe; when credentials appear, the scheduled loop must automatically transition to authenticated verification without manual code changes.",
+      "change": "Define and persist an explicit external-boundary readiness experiment covering VERCEL_TOKEN, CHECKOUT_URL, authenticated Analytics probing, production checkout status, and truthful revenue guardrails.",
+      "evidence": {
+        "ci": {
+          "status": "PENDING"
+        },
+        "preview": {
+          "status": "PENDING"
+        },
+        "production": {
+          "status": "PENDING"
+        },
+        "http": {
+          "status": "PENDING"
+        },
+        "analytics": {
+          "status": "PENDING",
+          "note": "No authenticated Analytics receipt is claimed until VERCEL_TOKEN is available to GitHub Actions."
+        },
+        "payment": {
+          "status": "PENDING",
+          "note": "No payment or revenue is claimed until CHECKOUT_URL is configured and an independent real transaction is confirmed."
+        }
+      },
+      "decision": "PENDING",
+      "next": "After external credentials are securely configured, let the scheduled workflow execute automatically; verify Analytics observation, checkout readiness, and only then real PURCHASE/REVENUE evidence."
     }
   ]
 }
