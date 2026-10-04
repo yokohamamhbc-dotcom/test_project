@@ -714,8 +714,10 @@
       "change": "Change Vercel SSO protection scope from all deployment targets to Preview only, leaving password protection disabled and trusted IP protection disabled; verify the Production deployment remains READY and the project records the intended protection boundary.",
       "evidence": {
         "ci": {
-          "status": "PENDING",
-          "note": "The Vercel protection change does not itself trigger GitHub Actions; the next main push will verify the repository control plane."
+          "status": "PASS",
+          "run": 107,
+          "conclusion": "success",
+          "headCommit": "2ce513e69b8232579f3d290ca8550a6d35945c3c"
         },
         "preview": {
           "status": "READY",
@@ -724,12 +726,12 @@
         },
         "production": {
           "status": "READY",
-          "deployment": "dpl_7Jbm8p2SsvFfuYmZid5Mhp2cPU9u",
-          "commit": "91f165c395b122a92581c3abbd380cc6b9c5813b"
+          "deployment": "dpl_2ff3M2fXpBxRLpDh2d7D1gfDppQC",
+          "commit": "9acf5e39314e1ef347ff36449584b45ddf81c6e9"
         },
         "http": {
-          "status": "PENDING",
-          "note": "The connected browser fetcher could not independently retrieve the Vercel URL; no HTTP success is claimed from that limitation."
+          "status": "PASS",
+          "note": "Production deployment reached READY after the merged boundary change; the CI production smoke contract passed in run 107. Direct browser retrieval from the connected web fetcher was unavailable, so no additional HTTP claim is made."
         },
         "analytics": {
           "status": "PENDING",
@@ -741,7 +743,7 @@
         }
       },
       "decision": "PASS",
-      "next": "Use the now-public Production boundary to verify the customer path, then connect real Analytics and payment credentials through user-controlled external configuration; never promote intent into PURCHASE or REVENUE."
+      "next": "Verify the customer-facing Production path with an external browser/payment flow when available, then connect real Analytics and payment credentials through user-controlled external configuration; never promote intent into PURCHASE or REVENUE."
     }
   ]
 }
