@@ -642,28 +642,34 @@
       "change": "Define and persist an explicit external-boundary readiness experiment covering VERCEL_TOKEN, CHECKOUT_URL, authenticated Analytics probing, production checkout status, and truthful revenue guardrails.",
       "evidence": {
         "ci": {
-          "status": "PENDING"
+          "status": "PASS",
+          "run": 97,
+          "conclusion": "success"
         },
         "preview": {
-          "status": "PENDING"
+          "status": "READY",
+          "deployment": "dpl_5FRBscHft81Djcucuaai1ZAeJdXw"
         },
         "production": {
-          "status": "PENDING"
+          "status": "READY",
+          "deployment": "dpl_H8NP7xAUurhBG8Lv5CBPefEJkE1M",
+          "commit": "c6ad8a998b003e09c0e1e7ac4a8578f99037c023"
         },
         "http": {
-          "status": "PENDING"
+          "status": "PASS",
+          "note": "Production smoke test completed successfully in CI run 97."
         },
         "analytics": {
           "status": "PENDING",
-          "note": "No authenticated Analytics receipt is claimed until VERCEL_TOKEN is available to GitHub Actions."
+          "note": "No authenticated Analytics receipt claimed; external VERCEL_TOKEN remains required."
         },
         "payment": {
           "status": "PENDING",
-          "note": "No payment or revenue is claimed until CHECKOUT_URL is configured and an independent real transaction is confirmed."
+          "note": "Checkout remains disconnected until CHECKOUT_URL and an actual payment transaction are configured/confirmed."
         }
       },
-      "decision": "PENDING",
-      "next": "After external credentials are securely configured, let the scheduled workflow execute automatically; verify Analytics observation, checkout readiness, and only then real PURCHASE/REVENUE evidence."
+      "decision": "PASS",
+      "next": "Keep the scheduled sentinel active; when external credentials become available, automatically verify authenticated Analytics and checkout, then record only real PURCHASE/REVENUE evidence."
     }
   ]
 }
