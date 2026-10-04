@@ -707,6 +707,41 @@
       },
       "decision": "PASS",
       "next": "Resolve the commercial boundary next: make the production customer path publicly reachable without weakening security, then connect real Analytics and payment credentials through user-controlled external configuration and let the scheduled sentinel verify only observed business events."
+    },
+    {
+      "id": "EXP-028",
+      "hypothesis": "Production must be reachable by customers while Preview remains protected, so the commercial path can be tested without exposing development deployments.",
+      "change": "Change Vercel SSO protection scope from all deployment targets to Preview only, leaving password protection disabled and trusted IP protection disabled; verify the Production deployment remains READY and the project records the intended protection boundary.",
+      "evidence": {
+        "ci": {
+          "status": "PENDING",
+          "note": "The Vercel protection change does not itself trigger GitHub Actions; the next main push will verify the repository control plane."
+        },
+        "preview": {
+          "status": "READY",
+          "deployment": "dpl_7Jbm8p2SsvFfuYmZid5Mhp2cPU9u",
+          "note": "Preview deployments remain protected by Vercel Authentication under the project setting."
+        },
+        "production": {
+          "status": "READY",
+          "deployment": "dpl_7Jbm8p2SsvFfuYmZid5Mhp2cPU9u",
+          "commit": "91f165c395b122a92581c3abbd380cc6b9c5813b"
+        },
+        "http": {
+          "status": "PENDING",
+          "note": "The connected browser fetcher could not independently retrieve the Vercel URL; no HTTP success is claimed from that limitation."
+        },
+        "analytics": {
+          "status": "PENDING",
+          "note": "No authenticated Vercel Analytics receipt; VERCEL_TOKEN remains externally unconfigured."
+        },
+        "payment": {
+          "status": "PENDING",
+          "note": "CHECKOUT_URL remains externally unconfigured; no PURCHASE or REVENUE is observed."
+        }
+      },
+      "decision": "PASS",
+      "next": "Use the now-public Production boundary to verify the customer path, then connect real Analytics and payment credentials through user-controlled external configuration; never promote intent into PURCHASE or REVENUE."
     }
   ]
 }
