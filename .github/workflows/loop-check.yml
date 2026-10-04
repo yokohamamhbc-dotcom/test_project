@@ -56,7 +56,7 @@ jobs:
           const evidenceStatuses=new Set(["PENDING","PASS","FAIL","READY"]);
           for(const e of x.experiments){
             if(!e.id||ids.has(e.id)||!e.hypothesis||!e.change||!decisions.has(e.decision)||!e.next) throw new Error("EXPERIMENT_HEADER_FAIL:"+e.id);
-            if(e.id==="EXP-006"||e.id==="EXP-007"||e.id==="EXP-009"||e.id==="EXP-010"||e.id==="EXP-011"||e.id==="EXP-012"||e.id==="EXP-013"||e.id==="EXP-014"||e.id==="EXP-015"||e.id==="EXP-016"||e.id==="EXP-017"||e.id==="EXP-018"||e.id==="EXP-019"||e.id==="EXP-020"||e.id==="EXP-021"||e.id==="EXP-023"||e.id==="EXP-024"||e.id==="EXP-025"||e.id==="EXP-026"){
+            if(e.id==="EXP-006"||e.id==="EXP-007"||e.id==="EXP-009"||e.id==="EXP-010"||e.id==="EXP-011"||e.id==="EXP-012"||e.id==="EXP-013"||e.id==="EXP-014"||e.id==="EXP-015"||e.id==="EXP-016"||e.id==="EXP-017"||e.id==="EXP-018"||e.id==="EXP-019"||e.id==="EXP-020"||e.id==="EXP-021"||e.id==="EXP-023"||e.id==="EXP-024"||e.id==="EXP-025"||e.id==="EXP-026"||e.id==="EXP-027"){
               const v=e.evidence;
               if(!v||!v.ci||!v.preview||!v.production||!v.http||!evidenceStatuses.has(v.ci.status)||!evidenceStatuses.has(v.preview.status)||!evidenceStatuses.has(v.production.status)||!evidenceStatuses.has(v.http.status)) throw new Error("STRUCTURED_EVIDENCE_FAIL:"+e.id);
             } else if(!Array.isArray(e.evidence)||e.evidence.length<1) throw new Error("LEGACY_EVIDENCE_FAIL:"+e.id);
