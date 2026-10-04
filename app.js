@@ -201,11 +201,20 @@ function runAuditDemo(){
   const [finding,action]=map[bottleneck];
   const result=$("#auditDemoResult");
   if(result){
-    result.innerHTML="<span>PRELIMINARY FINDING</span><strong>"+finding+"</strong><p>次の実験候補："+action+"。</p>";
+    result.innerHTML=`<span>PRELIMINARY FINDING</span><strong>${finding}</strong><p>次の実験候補：${action}。</p><button id="downloadAuditReport" class="secondary" type="button">診断レポートを保存</button>`;
     const cta=$("#demoCheckoutCta"); if(cta){cta.hidden=false; cta.textContent="この診断をもとにAuditを検討する →";}
   }
   trackBusinessEvent("AUDIT_DEMO_COMPLETED",{experimentId:"EXP-023",bottleneck,cadence});
+  const reportButton=$("#downloadAuditReport");
+  if(reportButton){ reportButton.onclick=()=>downloadAuditReport({bottleneck,cadence,finding,action}); }
   log("audit_demo."+bottleneck,"OBSERVED LOCALLY");
+}
+function downloadAuditReport({bottleneck,cadence,finding,action}){
+  const report={schemaVersion:1,kind:"free-audit-preview",generatedAt:new Date().toISOString(),inputs:{bottleneck,cadence},finding,action,commercialState:"NOT_CONNECTED",note:"無料診断レポート。購入・売上・顧客データではありません。"};
+  const blob=new Blob([JSON.stringify(report,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob); const a=document.createElement("a"); a.href=url; a.download="loop-audit-preview.json"; a.click(); URL.revokeObjectURL(url);
+  trackBusinessEvent("AUDIT_REPORT_GENERATED",{experimentId:"EXP-029",bottleneck,cadence});
+  log("audit_report.generated","OBSERVED LOCALLY");
 }
 document.addEventListener("DOMContentLoaded",()=>{
   const b=$("#runAuditDemo");

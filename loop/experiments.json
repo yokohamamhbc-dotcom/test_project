@@ -744,6 +744,35 @@
       },
       "decision": "PASS",
       "next": "Verify the customer-facing Production path with an external browser/payment flow when available, then connect real Analytics and payment credentials through user-controlled external configuration; never promote intent into PURCHASE or REVENUE."
+    },
+    {
+      "id": "EXP-029",
+      "hypothesis": "A visitor who completes the free diagnostic is more likely to understand the paid Audit when the system produces a concrete, saveable artifact rather than only transient on-screen text.",
+      "change": "Add a browser-generated JSON audit preview report containing the selected bottleneck, cadence, preliminary finding, next experiment, and explicit NOT_CONNECTED commercial state; emit AUDIT_REPORT_GENERATED only as an observed local/client event.",
+      "evidence": {
+        "ci": {
+          "status": "PENDING"
+        },
+        "preview": {
+          "status": "PENDING"
+        },
+        "production": {
+          "status": "PENDING"
+        },
+        "http": {
+          "status": "PENDING"
+        },
+        "analytics": {
+          "status": "PENDING",
+          "note": "No authenticated Vercel Analytics receipt; local event emission is not external observation."
+        },
+        "payment": {
+          "status": "PENDING",
+          "note": "Checkout remains disconnected; report generation is not a purchase or revenue event."
+        }
+      },
+      "decision": "PENDING",
+      "next": "Verify CI, Production READY, and the report-generation contract; once authenticated analytics exists, compare report generation against checkout intent without promoting local events into revenue."
     }
   ]
 }
