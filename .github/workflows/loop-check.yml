@@ -14,7 +14,7 @@ jobs:
       - name: Verify required files
         run: |
           set -euo pipefail
-          for f in index.html style.css app.js loop/experiments.json loop/business.json loop/events.json scripts/analytics-probe.mjs scripts/revenue-loop-sentinel.mjs scripts/production-smoke.mjs api/checkout.js; do
+          for f in index.html style.css app.js loop/experiments.json loop/business.json loop/events.json loop/revenue-evidence.json scripts/analytics-probe.mjs scripts/revenue-loop-sentinel.mjs scripts/stripe-payment-evidence.mjs scripts/production-smoke.mjs api/checkout.js; do
             test -f "$f"
             echo "FILE_OK=$f"
           done
@@ -32,6 +32,7 @@ jobs:
       - name: Verify autonomous sentinel syntax
         run: |
           node --check scripts/revenue-loop-sentinel.mjs
+          node --check scripts/stripe-payment-evidence.mjs
           node --check scripts/production-smoke.mjs
 
       - name: Verify checkout API syntax
@@ -46,9 +47,11 @@ jobs:
           node - <<'NODE'
           const business=require('./loop/business.json');
           const events=require('./loop/events.json');
+          const revenueEvidence=require('./loop/revenue-evidence.json');
           const requiredEvents=["VISIT","ACTIVATION","TRIAL_STARTED","PURCHASE","RETENTION"];
           if(events.schemaVersion!==1 || events.status!=="NOT_CONNECTED" || events.provider!=="NONE" || !Array.isArray(events.events) || requiredEvents.some(n=>!events.events.some(e=>e.name===n))) throw new Error("EVENT_CONTRACT_FAIL");
           if(business.schemaVersion!==1 || !business.northStar || business.northStar.metric!=="revenue" || !Array.isArray(business.funnel) || business.funnel.length<1) throw new Error("BUSINESS_CONTRACT_FAIL");
+          if(revenueEvidence.schemaVersion!==1 || revenueEvidence.payment?.configuration!=="CONNECTED" || revenueEvidence.revenue?.status!=="NOT_OBSERVED" || revenueEvidence.testPayment?.status!=="NOT_OBSERVED") throw new Error("REVENUE_EVIDENCE_GUARD_FAIL");
           const x=require('./loop/experiments.json');
           if(x.schemaVersion!==1 || !Array.isArray(x.experiments) || x.experiments.length<1) throw new Error("LEDGER_CONTRACT_FAIL");
           const ids=new Set();
@@ -94,6 +97,15 @@ jobs:
           mkdir -p probe-output
           node scripts/revenue-loop-sentinel.mjs | tee probe-output/revenue-loop-sentinel.json
 
+      - name: Run Stripe payment evidence probe
+        env:
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          STRIPE_ACCOUNT_ID: acct_1UNL6D9O2m2vdvUI
+          STRIPE_PAYMENT_LINK_ID: plink_1UNLAr9O2m2vdvUIjGiJ36p8
+        run: |
+          mkdir -p probe-output
+          node scripts/stripe-payment-evidence.mjs | tee probe-output/stripe-payment-evidence.json
+
       - name: Run production smoke test when configured
         env:
           PRODUCTION_URL: https://test-project-yokohamamhbc-9529.vercel.app
@@ -108,6 +120,7 @@ jobs:
           set -euo pipefail
           mkdir -p probe-output
           node scripts/analytics-probe.mjs | tee probe-output/analytics.json
+
       - name: Generate machine-readable loop report
         run: |
           cat > loop-report.json <<'JSON'
@@ -120,21 +133,31 @@ jobs:
           JSON
           echo "LOOP_CHECK=PASS"
           echo "EVIDENCE_LEDGER=PASS"
+
       - name: Publish machine-readable loop report
         uses: actions/upload-artifact@v4
         with:
           name: loop-report
           path: loop-report.json
+
       - name: Publish analytics probe result
         uses: actions/upload-artifact@v4
         with:
           name: analytics-probe
           path: probe-output/analytics.json
+
       - name: Publish autonomous sentinel result
         uses: actions/upload-artifact@v4
         with:
           name: revenue-loop-sentinel
           path: probe-output/revenue-loop-sentinel.json
+
+      - name: Publish Stripe payment evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: stripe-payment-evidence
+          path: probe-output/stripe-payment-evidence.json
+
       - name: Publish production smoke result
         uses: actions/upload-artifact@v4
         with:
