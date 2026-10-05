@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-06",
+  "payment": {
+    "provider": "stripe",
+    "mode": "test",
+    "account": "acct_1UNL6D9O2m2vdvUI",
+    "paymentLink": {
+      "id": "plink_1UNLAr9O2m2vdvUIjGiJ36p8",
+      "active": true,
+      "offer": "audit",
+      "priceJpy": 49800,
+      "url": "https://buy.stripe.com/test_bJe00d1Ar8EN5OV8Ra00000"
+    },
+    "configuration": "CONNECTED"
+  },
+  "testPayment": {
+    "status": "NOT_OBSERVED",
+    "paymentIntentCount": 0,
+    "chargeCount": 0,
+    "note": "No Stripe test PaymentIntent or Charge was present at verification time. A test payment must not be represented as production revenue."
+  },
+  "revenue": {
+    "status": "NOT_OBSERVED",
+    "currency": "JPY",
+    "observedAmountJpy": 0,
+    "evidenceType": "stripe_payment_intent_and_charge_list"
+  },
+  "analytics": {
+    "status": "NOT_OBSERVED"
+  },
+  "decision": "PAYMENT_CONFIGURED_TEST_PAYMENT_UNOBSERVED",
+  "nextExperiment": "Complete one Stripe-hosted test checkout with an official Stripe test payment method, then verify the resulting PaymentIntent and Charge."
+}
