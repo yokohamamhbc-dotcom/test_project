@@ -14,6 +14,17 @@
     },
     "configuration": "CONNECTED"
   },
+  "automation": {
+    "probe": "CONNECTED",
+    "script": "scripts/stripe-payment-evidence.mjs",
+    "workflow": ".github/workflows/loop-check.yml",
+    "productionDeployment": {
+      "id": "dpl_2JfEwsDRVveDeB3YgUKpPBgjwotx",
+      "state": "READY",
+      "commit": "5711514fb321e00d5fdfb639e4eaf60745c4434a"
+    },
+    "secretBoundary": "STRIPE_SECRET_KEY remains optional and is never stored in source control."
+  },
   "testPayment": {
     "status": "NOT_OBSERVED",
     "paymentIntentCount": 0,
@@ -30,5 +41,5 @@
     "status": "NOT_OBSERVED"
   },
   "decision": "PAYMENT_CONFIGURED_TEST_PAYMENT_UNOBSERVED",
-  "nextExperiment": "Complete one Stripe-hosted test checkout with an official Stripe test payment method, then verify the resulting PaymentIntent and Charge."
+  "nextExperiment": "Complete one Stripe-hosted test checkout with an official Stripe test payment method, then let the scheduled CI probe verify the resulting PaymentIntent and Charge."
 }
