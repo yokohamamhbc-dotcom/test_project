@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "experimentId": "EXP-029",
+  "recordedAt": "2026-10-08T08:18:00+09:00",
+  "purpose": "Observed evidence receipt kept separate from the historical ledger until the ledger can be safely reconciled.",
+  "evidence": {
+    "main": {
+      "sha": "a0b19acc082a47a417e33cbfff0b652d82d544fa"
+    },
+    "pr45": {
+      "number": 45,
+      "state": "open",
+      "merged": false,
+      "head": "1b566c995fbac21b2c4a08662924887852af3d50",
+      "base": "main"
+    },
+    "ci": {
+      "status": "PASS",
+      "source": "GitHub combined status",
+      "context": "Vercel",
+      "state": "success",
+      "workflowRunsForCommit": 0
+    },
+    "production": {
+      "status": "READY",
+      "deploymentId": "dpl_EkNmJ7a4jxWTMTzcHA8GWUu4cymK",
+      "commit": "a0b19acc082a47a417e33cbfff0b652d82d544fa",
+      "httpStatus": 200
+    },
+    "protection": {
+      "productionPassword": false,
+      "previewSSO": true
+    },
+    "runtimeErrors": {
+      "status": "PASS",
+      "window": "24h",
+      "clusters": 0
+    },
+    "checkout": {
+      "status": "CONNECTED",
+      "endpointStatus": 200,
+      "redirectStatus": 302,
+      "paymentLinkConfigured": true,
+      "offer": "audit",
+      "priceJpy": 49800
+    },
+    "stripe": {
+      "mode": "test",
+      "paymentIntentCount": 0,
+      "chargeCount": 0
+    },
+    "analytics": {
+      "status": "NOT_CONNECTED",
+      "reason": "Vercel Web Analytics is not enabled for the project; API query returned web_analytics_not_enabled"
+    },
+    "revenue": {
+      "status": "NOT_OBSERVED"
+    }
+  },
+  "decision": "The free-audit artifact and paid checkout bridge are production-reachable, but no external analytics receipt or payment event exists. Do not promote intent or checkout readiness to purchase/revenue.",
+  "nextExperiment": "EXP-030"
+}
