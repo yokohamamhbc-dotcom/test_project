@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "experimentId": "EXP-031",
+  "recordedAt": "2026-10-08T14:50:00.502Z",
+  "hypothesis": "検索意図に合うLPメタデータと無料Audit→有料Auditの価値差を明確化すると、外部顧客獲得前の導線摩擦を下げられる。",
+  "experiment": "Customer Acquisition → Free Audit → Paid Audit conversion bridge",
+  "implementation": {
+    "planned": [
+      "SEO title/descriptionをAudit中心へ変更",
+      "無料診断→有料Auditの価値差を明示",
+      "FAQ/成果物説明をLPへ追加",
+      "構造化データでサービス内容を明示"
+    ],
+    "status": "BLOCKED_BY_TOOL_SAFETY",
+    "note": "index.htmlの直接更新は安全チェックで拒否された。安全ゲートを迂回せず、未実装を実装済みとは扱わない。"
+  },
+  "test": {
+    "status": "NOT_RUN",
+    "reason": "Production code change was not created."
+  },
+  "evidence": {
+    "baselineMain": "f711b9480748bfe87221b351c6377e47bb0f1092",
+    "pr45": "OPEN_UNMERGED",
+    "productionDeployment": "dpl_2DL42h5jsQydbnPDfY9t1qNEXkHg",
+    "productionState": "READY",
+    "runtimeErrors": 0,
+    "analytics": "NOT_CONNECTED",
+    "paymentIntents": 0,
+    "charges": 0
+  },
+  "decision": "BLOCKED",
+  "next": "Retry EXP-031 with a safe repository mutation path that does not bypass the write safety gate; then PR→CI→Vercel→Production verification."
+}
