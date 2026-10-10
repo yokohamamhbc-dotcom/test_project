@@ -14,7 +14,7 @@ jobs:
       - name: Verify required files
         run: |
           set -euo pipefail
-          for f in index.html style.css app.js loop/experiments.json loop/business.json loop/events.json loop/revenue-evidence.json scripts/analytics-probe.mjs scripts/revenue-loop-sentinel.mjs scripts/stripe-payment-evidence.mjs scripts/production-smoke.mjs api/checkout.js api/events.js scripts/test-events-api.mjs; do
+          for f in index.html style.css app.js loop/experiments.json loop/business.json loop/events.json loop/revenue-evidence.json scripts/analytics-probe.mjs scripts/revenue-loop-sentinel.mjs scripts/stripe-payment-evidence.mjs scripts/production-smoke.mjs api/checkout.js api/events.js api/stripe-webhook.js scripts/test-events-api.mjs scripts/test-stripe-webhook.mjs; do
             test -f "$f"
             echo "FILE_OK=$f"
           done
@@ -42,6 +42,8 @@ jobs:
         run: |
           node --check api/events.js
           node scripts/test-events-api.mjs
+          node --check api/stripe-webhook.js
+          node scripts/test-stripe-webhook.mjs
 
       - name: Verify control plane audit syntax
         run: node --check scripts/control-plane-audit.cjs
